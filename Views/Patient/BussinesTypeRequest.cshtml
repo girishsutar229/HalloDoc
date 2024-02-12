@@ -1,0 +1,177 @@
+﻿@model HalloDoc.DataModels.BussinessRequest;
+@{
+    Layout = "_Layout";
+}
+
+<div class=" mt-2 h-100 d-flex flex-column justify-content-between align-items-center">
+    <div class="container mb-2 pb-5">
+        <div class="backbtn w-100 px-4 d-flex justify-content-end align-items-start">
+            <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
+        </div>
+        <form asp-controller="Patient" asp-action="BussinesTypeRequest" class="p-4 m-4 shadow boder-0 " class="needs-validation" novalidate>
+            <h5 class="pt-4">Bussines Information</h5>
+            <div class="row input-group justify-content-between align-items-center">
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
+                    <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" required>
+                    <label class="mx-3">Your First Name</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
+                    <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                    <label class="mx-3">Your Last Name</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating  mb-3  col-md-6 col-lg-6">
+                    <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" required>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
+                    <input asp-for="Email" class="form-control" type="email" id="Email" placeholder="Email " required>
+                    <label class="mx-3">Your Email</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
+                    <input asp-for="BusinessName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                    <label class="mx-3">Business/Property Name</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="BusinessName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
+                    <input asp-for="CaseNumber" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                    <label class="mx-3">Case Number/(Optional)</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="CaseNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <h5 class="pt-4">Patient Information</h5>
+            <div class="row input-group justify-content-between align-items-center">
+                <div class="form-floating col-12 mb-3 ">
+                    <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)" required></textarea>
+                    <label class="mx-3 ">Enter Brief Details Of Sympotonms (Optional)</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientSymptoms" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
+                    <input asp-for="PatientFirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" required>
+                    <label class="mx-3">First Name</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
+                    <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                    <label class="mx-3">Last Name</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
+                    <input asp-for="PatientDateOfBirth" class="form-control" type="date" id="date-of-birth" placeholder="date-of-birth" required>
+                    <label class="mx-3">Date Of Birth</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientDateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <h5 class="pt-4">Patient Contact Information</h5>
+            <div class=" row input-group mb-3 justify-content-between align-items-center">
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
+                    <input asp-for="PatientEmail" class="form-control" type="email" id="Email" placeholder="Email " required>
+                    <label class="mx-3">Email</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating  mb-3  col-md-6 col-lg-6">
+                    <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone2" required>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <h5 class="pt-4">Patient Location</h5>
+            <div class="row input-group mb-3 justify-content-between align-items-center">
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 row2">
+                    <input asp-for="PatientStreet" class="form-control" type="text" id="Street" placeholder="Street" required>
+                    <label class="mx-3">Street</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientStreet" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
+                    <input asp-for="PatientCity" class="form-control" type="text" id="City" placeholder="City" required>
+                    <label class="mx-3">City</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientCity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6  mb-3 ">
+                    <input asp-for="PatientState" class="form-control" type="text" id="State" placeholder="State" required>
+                    <label class="mx-3">State</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientState" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6  mb-3">
+                    <input asp-for="PatientZipCode" class="form-control" type="text" id="Zip Code" placeholder="Zip Code" required>
+                    <label class="mx-3">Zip Code</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientZipCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
+                    <input asp-for="PatientRoomNumber" class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)" required>
+                    <label class="mx-3">Room # / Suit (Optional)</label>
+                    <div class="invalid-feedback">
+                        <span asp-validation-for="PatientRoomNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="btn d-flex justify-content-end">
+                <button type="submit" class="btn btn-info mx-3 p-2 px-4 submit" onclick="checkValidation">Submit</button>
+                <button type="button" class="btn btn-outline-info mx-2 p-2 px-4">Cancle</button>
+            </div>
+        </form>
+    </div>
+    <!-- pop up box show when email are not connecting -->
+    <div class="modal fade" id="customModal" tabindex="-1" role="dialog" aria-labelledby="customModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body text-center">
+                    <div class="m-3">
+                        <img src="~/SRS Screen Shorts/exclamation-circle-fill.svg" class="border img-fluid border-warning p-1 rounded-circle mx-auto  " alt="...">
+                    </div>
+                    <h4 class="m-4">Information</h4>
+                    <p class="popup mb-3">
+                        When submiting the request you must provide the correct contact information for the patient or
+                        the responible party. Failure to provide the correct email and phone number will delay service
+                        or declined.
+                    </p>
+                    <div class="text-center m-2">
+                        <button type="button" class="btn btn-primary btn1 m-3" data-bs-dismiss="modal">OK</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

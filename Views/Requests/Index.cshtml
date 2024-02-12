@@ -1,0 +1,192 @@
+﻿@model IEnumerable<HalloDoc.DataModels.Request>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfirmationNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            @*     <th>
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeclinedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsUrgentEmailSent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastWellnessDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsMobile)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CallType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompletedByPhysician)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastReservationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AcceptedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RelationName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CaseNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CaseTag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CaseTagPhysician)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PatientAccountId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedUserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Physician)
+                </th> *@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestTypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConfirmationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeclinedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsUrgentEmailSent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastWellnessDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CallType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedByPhysician)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastReservationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AcceptedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RelationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseTag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseTagPhysician)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientAccountId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Physician.PhysicianId)
+            </td> *@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RequestId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

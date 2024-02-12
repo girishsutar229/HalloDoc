@@ -1,0 +1,39 @@
+body { font-family: Arial, sans-serif;  margin: 0;  padding: 0;  min-height: 100vh }
+
+.backgroungdimg{  background: url('../SRS Screen Shorts/11116016_415.jpg') no-repeat center center;  background-size: contain;  
+                  height:100vh;  width:100vw;  opacity: 0.3;
+}
+
+.top-logo{  position: absolute;  display: flex;  flex-direction: column;  justify-content: space-between;  align-items: center }
+
+.icon{  position: absolute;  right:5%;  top : 23% }
+
+.back-link{  text-align: left }
+
+ h2 {  color: #110f0f;  margin-top: 20px }
+
+ input {  width: 100%;  padding: 10px;  margin-bottom: 16px;  box-sizing: border-box;  border: 1px solid #ddd;  border-radius: 5px }
+
+.buttonlogin { background-color: #12b7f3; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
+
+.buttonlogin:hover {  background-color: #008bbe; }
+
+.bottom-links { margin-top: 20px; }
+
+.back-link, .forgotpsw , .bcklogin{ color: #12b7f3; text-decoration: none; margin: 0 10px; font-weight: bolder; font-size: medium; }
+
+
+/*Patient Dashboard */
+
+.Logout {
+    color: #0dcaf0;
+    border: 2px solid #0dcaf0;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .Logout:hover {
+        color: #ffffff;
+        background-color: #0dcaf0;
+    }
+

@@ -1,0 +1,52 @@
+﻿@using HalloDoc.DataModels;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model MyVieeModel;
+
+<form method="post" asp-controller="Home" asp-action="Index" class="row g-3 needs-validation" novalidate>
+    <div class="col-md-4">
+        <div class="form-outline" data-mdb-input-init>
+            <input asp-for="email" class="form-control" required />
+            <label asp-for="email" class="form-label"></label>
+            <div class="invalid-feedback">
+                <span asp-asp-validation-for="email" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-outline" data-mdb-input-init>
+            <input asp-for="password" class="form-control" required />
+            <label asp-for="password" class="form-label"></label>
+            <div class="invalid-feedback">
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit" data-mdb-ripple-init>Submit form</button>
+    </div>
+</form>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener('submit', (event) => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>

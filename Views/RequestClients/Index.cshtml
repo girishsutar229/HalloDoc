@@ -1,0 +1,201 @@
+﻿@model IEnumerable<HalloDoc.DataModels.RequestClient>
+
+@{
+    ViewData["Title"] = "Index";
+}
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            @*
+            <th>
+                @Html.DisplayNameFor(model => model.NotiMobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotiEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StrMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IntYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IntDate)
+            </th>
+            @*
+            <th>
+                @Html.DisplayNameFor(model => model.IsMobile)
+            </th> 
+            *@
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.CommunicationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RemindReservationCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RemindHouseCallCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSetFollowupSent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReservationReminderSent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Request)
+            <th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+                
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+                @*
+            <td>
+                @Html.DisplayFor(modelItem => item.NotiMobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotiEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.StrMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IntYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IntDate)
+            </td>
+              @*
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMobile)
+            </td> 
+            *@
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+          @*   <td>
+                @Html.DisplayFor(modelItem => item.CommunicationType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemindReservationCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemindHouseCallCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSetFollowupSent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReservationReminderSent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.RegionId)
+            </td>
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.Request.RequestId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequestClientId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RequestClientId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequestClientId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+
+
+ body{  margin: 0; padding: 0;height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+.backbutton { color: #0dcaf0; border: 2px solid #0dcaf0; border-radius: 5px; text-decoration: none; }
+.backbutton:hover {  color: #ffffff;  background-color: #0dcaf0; }
+
+.patients-types a{ width: 300px; padding: 10px; border-radius: 5px; text-decoration: none; cursor: pointer }
+
+.patientanchor{ background-color: #0c3e9a33; color: #0f4dbfef; border:2px solid #0c3e9a33 }
+.patientanchor:hover{ background-color: #04349554; color: #053fb3ef; border:2px solid #01102a33 }
+
+.familyacnhor{ background-color: #01a4ba21; color: #01a4ba; border:2px solid #01a4ba3f }
+.familyacnhor:hover{ background-color: #06a9bb56; color: #0590a3; border:2px solid #0239403f }
+
+.concierge{ background-color: #00c37c45; color: #00c37cef; border:2px solid #00c37c3f } 
+.concierge:hover{ background-color: #02d78d5f; color: #00472def; border:2px solid #0126183f } 
+
+.bpartner{  background-color: #6b036455; color: #a33c9cef; border:2px solid #a73ba034; }
+.bpartner:hover{  background-color: #f705e747; color: #4b0346ef; border:2px solid #32012e34; }
+
+.footer { background-color: #282828; }
+.footer a { color: white; text-decoration: none }
+
+@media only screen and (max-width: 425px) {
+    .footer {
+        justify-content: center;
+    }
+}
+
+
+
+/*Request type(patient,bussiness,family-friend,concierge) css start .................................................................................*/
+
+.iti{ width: 100%} 
+
+.custom-file-upload{display: block;width: 100%;}
+.upload-button{background-color:rgb(35, 176, 232);color: white; margin: -8px -13px;align-items: center; gap: 10px; padding: 0px 10px; border-radius: 5px;}
+
+.submit:hover{color: #ffffff; background-color: #00a0c0; border-color: #00a8ca; }
+
+.footer{   background-color: #282828; }
+
+.footer a{ color: white; text-decoration: none  }
+@media only screen and (max-width: 425px){ 
+    .footer{
+        justify-content: center;
+    }
+}
+
+  /* Additional CSS styles for centering the modal */
+.modal-dialog { display: flex; align-items: center; justify-content: center; min-height: 100%; }
+.modal-content {  width: 80%;  /*Adjust the width as needed /*/  }
