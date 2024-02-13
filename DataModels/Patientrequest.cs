@@ -12,21 +12,28 @@ namespace HalloDoc.DataModels
         [Key]
         public string Symptoms { get; set; }
 
-        [Required(ErrorMessage = "First Name is required")]
+        [Required(ErrorMessage = "Please Enter FirstName")]
         [StringLength(100)]
+        [DataType(DataType.Text)]
         public string FirstName { get; set; } = null!;
 
+        [Required(ErrorMessage = "Please Enter FirstName")]
+        [DataType(DataType.Text)]
         [StringLength(100)]
         public string? LastName { get; set; }
 
-        [Required(ErrorMessage = "Email is required")]
+        [Required(ErrorMessage = "Please Enter Email ID")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$|^\+?\d{0,2}\-?\d{4,5}\-?\d{5,6}", ErrorMessage = "Email is not valid.")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
+        //[EmailAddress(ErrorMessage = "Invalid email address")]
+        [StringLength(50)]
         public string Email { get; set; } = null!;
 
+        [Required(ErrorMessage = "Please Enter PhoneNumber")]
+        [RegularExpression(@"^\+(?:[0-9]?){6,14}[0-9]$", ErrorMessage = "Enter valid Phone number")]
         [StringLength(23)]
         public string? PhoneNumber { get; set; }
 
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage ="Please the EnterValid password")]
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [MaxLength(255)] // Adjust the max length as per your hashing algorithm

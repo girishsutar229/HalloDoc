@@ -1,11 +1,11 @@
-﻿
-using HalloDoc.DataContext;
+﻿using HalloDoc.DataContext;
 using HalloDoc.DataModels;
 using HalloDoc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
+
 
 namespace HalloDoc.Controllers
 {
@@ -37,20 +37,58 @@ namespace HalloDoc.Controllers
         [Route("Patient/Login", Name = "PatientLoginPage")]
         public IActionResult Patientlogin(AspNetUsersLogin model)
         {
-            var user = _context.AspNetUsers.FirstOrDefault(u => u.UserName == model.UserName && u.PasswordHash == model.PasswordHash);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                TempData["success"] = "User LogIn Successfully";
-                return RedirectToAction("PatientDashboard", "Patient");
-            }
-            else
-            {
-                TempData["error"] = "Username or Password is Incorrect";
-                return View("PatientLoginPage");
-            }
 
+                var aspNetUserFromDb = _context.AspNetUsers.FirstOrDefault(u => u.UserName == model.UserName );
+                if (aspNetUserFromDb != null && aspNetUserFromDb.PasswordHash == model.PasswordHash)
+                {
+                    User userFromDb = _context.Users.FirstOrDefault(a => a.AspNetUserId == aspNetUserFromDb.Id);
+                    CookieOptions cookieOptions = new CookieOptions();
+                    cookieOptions.Secure = true;
+                    cookieOptions.Expires = DateTime.Now.AddMinutes(10);
+                    Response.Cookies.Append("UserId", userFromDb.UserId.ToString(), cookieOptions);
+                    TempData["success"] = "User LogIn Successfully";
+                    return RedirectToAction("PatientDashboard", "Patient");
+                }
+                else if (aspNetUserFromDb == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid username");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid password");
+                }
+            }
+            return RedirectToAction("PatientDashboard");
         }
+        //public IActionResult PatientLogin(PatientLogin user)
+        //{
 
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        var aspNetUserFromDb = _context.Aspnetusers.FirstOrDefault(a => a.Email == user.Username);
+        //        if (aspNetUserFromDb != null && aspNetUserFromDb.Passwordhash == user.Password)
+        //        {
+        //            User userFromDb = _context.Users.FirstOrDefault(a => a.Aspnetuserid == aspNetUserFromDb.Id);
+        //            CookieOptions cookieOptions = new CookieOptions();
+        //            cookieOptions.Secure = true;
+        //            cookieOptions.Expires = DateTime.Now.AddMinutes(10);
+        //            Response.Cookies.Append("UserId", userFromDb.Userid.ToString(), cookieOptions);
+        //            return RedirectToAction("PatientDashboard");
+        //        }
+        //        else if (aspNetUserFromDb == null)
+        //        {
+        //            ModelState.AddModelError(string.Empty, "Invalid username");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError(string.Empty, "Invalid password");
+        //        }
+        //    }
+        //    return RedirectToAction("PatientLogin");
+        //}
         /*---------------------------------------------------------------ResetePatientpsw---------------------------------------------------------------------------------*/
 
 
@@ -101,6 +139,7 @@ namespace HalloDoc.Controllers
 
                     var user = new User
                     {
+                        AspNetUserId = aspnetuser1.Id,
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Email = model.Email,
@@ -162,7 +201,6 @@ namespace HalloDoc.Controllers
             return View(model);
         }
 
-
         /*-----------------------------------------------------FamilyTypeRequest---------------------------------------------------------------------------------*/
 
         [HttpGet]
@@ -176,10 +214,10 @@ namespace HalloDoc.Controllers
         [Route("Patient/RequestTypes/Family", Name = "FamilyTypeRequest")]
         public async Task<IActionResult> FamilyTypeRequest(FamilyFriendRequest model)
         {
-            var exitinguser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
 
             if (ModelState.IsValid)
             {
+                var exitinguser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
                 var request = new Request
                 {
                     UserId = exitinguser?.UserId,
@@ -218,7 +256,7 @@ namespace HalloDoc.Controllers
                 _context.RequestClients.Add(requestclient);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("PatientSite", "Patient");
-
+             
 
             }
 
@@ -278,7 +316,7 @@ namespace HalloDoc.Controllers
 
                 _context.RequestClients.Add(newRequestClient);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("PatientSite", "Patient");
+               return RedirectToAction("PatientSite", "Patient");
 
             }
             return View();
@@ -352,10 +390,18 @@ namespace HalloDoc.Controllers
         /*-----------------------------------------------------PatientDashBoard---------------------------------------------------------------------------------*/
 
         [Route("Patient/Login/PatientDashboard", Name = "PatientDashboard")]
+        //public IActionResult PatientDashboard()
+        //{
+        //    //ViewBag.user1 = _context.Requests.ToList();
+        //    return View();
+        //}
         public IActionResult PatientDashboard()
         {
-            ViewBag.user1 = _context.Requests.ToList();
-            return View();
+            int userId = int.Parse(Request.Cookies["UserId"]);
+            PatientDashboardViewModel dashboardData = new PatientDashboardViewModel();
+            dashboardData.User = _context.Users.FirstOrDefault(a => a.UserId == userId);
+            dashboardData.RequestData = _context.Requests.Where(b => b.UserId == userId).ToList();
+            return View(dashboardData);
         }
 
         /*-----------------------------------------------------ErrorViewModel---------------------------------------------------------------------------------*/

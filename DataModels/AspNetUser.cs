@@ -18,7 +18,7 @@ public partial class AspNetUser
     public string? PasswordHash { get; set; }
 
     [StringLength(256)]
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
     [StringLength(20)]
     public string? PhoneNumber { get; set; }

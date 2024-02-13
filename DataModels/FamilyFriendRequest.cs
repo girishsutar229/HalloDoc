@@ -13,18 +13,20 @@ namespace HalloDoc.DataModels
         [Key]
         public int UserId { get; set; }
 
-        [Required(ErrorMessage = "Please Enter a FirstName ")]
+        [Required(ErrorMessage = "Please Enter FirstNam")]
         [StringLength(100)]
         public string FirstName { get; set; } = null!;
 
         [StringLength(100)]
         public string? LastName { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Email")]
+        [Required(ErrorMessage = "Please Enter Email ID")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$|^\+?\d{0,2}\-?\d{4,5}\-?\d{5,6}", ErrorMessage = "Email is not valid.")]
         [StringLength(50)]
         public string Email { get; set; } = null!;
 
-        [Required(ErrorMessage ="please Enter Phonenumber")]
+        [Required(ErrorMessage = "Please Enter PhoneNumber")]
+        [RegularExpression(@"^\+(?:[0-9]?){6,14}[0-9]$", ErrorMessage = "Enter valid PhoneNumber")]
         [StringLength(20)]
         public string? PhoneNumber { get; set; }
 
@@ -35,34 +37,36 @@ namespace HalloDoc.DataModels
         [StringLength(500)]
         public string? PatientSymptoms { get; set; }
 
-        [Required(ErrorMessage = "Please Enter a PatientFirstName")]
+        [Required(ErrorMessage = "Please Enter PatientFirstName")]
         [StringLength(100)]
         public string PatientFirstName { get; set; } = null!;
 
         [StringLength(100)]
         public string? PatientLastName { get; set; }
 
-        [Required(ErrorMessage = "Please Enter a PatientEmail name")]
+        [Required(ErrorMessage = "Please Enter PatientEmail")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$|^\+?\d{0,2}\-?\d{4,5}\-?\d{5,6}", ErrorMessage = "Email is not valid.")]
         [StringLength(50)]
         public string PatientEmail { get; set; } = null!;
 
-        [Required(ErrorMessage = "Please Enter a PatientPhonenumber")]
+        [Required(ErrorMessage = "Please Enter  PatientPhonenumber")]
+        [RegularExpression(@"^\+(?:[0-9]?){6,14}[0-9]$", ErrorMessage = "Enter valid PatientPhoneNumber")]
         [StringLength(20)]
         public string? PatientPhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Please Enter a PatientStreet ")]
+        [Required(ErrorMessage = "Please Enter PatientStreet ")]
         [StringLength(100)]
         public string PatientStreet { get; set; } = null!;
 
-        [Required(ErrorMessage = "Please Enter a PatientCity name")]
+        [Required(ErrorMessage = "Please Enter  PatientCity")]
         [StringLength(100)]
         public string PatientCity { get; set; } = null!;
 
-        [Required(ErrorMessage = "Please Enter a PatientState name")]
+        [Required(ErrorMessage = "Please Enter  PatientState")]
         [StringLength(100)]
         public string PatientState { get; set; } = null!;
 
-        [Required(ErrorMessage = "Please Enter a PatientZipCode name")]
+        [Required(ErrorMessage = "Please Enter  PatientZipCode")]
         [StringLength(10)]
         public string PatientZipCode { get; set; } = null!;
 

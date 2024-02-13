@@ -8,104 +8,135 @@
         <div class="backbtn w-100 px-4 d-flex justify-content-end align-items-start">
             <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
         </div>
-        <form asp-controller="Patient" asp-action="ConciergeTypeRequest"  class="p-4 m-4 shadow boder-0 ">
+        <form asp-controller="Patient" asp-action="ConciergeTypeRequest" class="p-4 m-4 shadow boder-0 needs-validation" novalidate>
 
             <h5 class="pt-4">Concierge Information</h5>
             <div class="row input-group justify-content-between align-items-center">
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
-                    <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" >
-                    <label class="mx-3">Your First Name</label>
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                <div class="col-12 col-md-6 col-lg-6 mb-3 ">
+                    <div class="form-floating ">
+                        <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" required>
+                        <label asp-for="FirstName">Your First Name</label>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
-                    <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
-                    <label class="mx-3">Your Last Name</label>
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3">
+                    <div class="form-floating ">
+                        <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                        <label asp-for="LastName">Your Last Name</label>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating  mb-3  col-md-6 col-lg-6">
-                    <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone">
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <div class="mb-3  col-md-6 col-lg-6">
+                    <div class="form-floating ">
+                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" required>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
-                    <input asp-for="Email" class="form-control" type="email" id="Email"  placeholder="Email " >
-                    <label class="mx-3">Your Email</label>
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="col-12 col-md-6 col-lg-6 mb-3 ">
+                    <div class="form-floating ">
+                        <input asp-for="Email" class="form-control" type="email" id="Email" placeholder="Email " required>
+                        <label asp-for="Email">Your Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
-                    <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
-                    <label class="mx-3">Hotel/Property Name</label>
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                <div class="col-12 col-md-6 col-lg-6 mb-3 ">
+                    <div class="form-floating ">
+                        <input asp-for="PropertyName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                        <label asp-for="PropertyName">Hotel/Property Name</label>
+                        <span asp-validation-for="PropertyName" class="text-danger"></span>
+                    </div>
                 </div>
 
             </div>
             <h5 class="pt-4">Concierge Location</h5>
             <div class="row input-group mb-3 justify-content-between align-items-center">
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 row2">
-                    <input asp-for="Street" class="form-control" type="text" id="Street"  placeholder="Street" >
-                    <label class="mx-3">Street</label>
-                    <span asp-validation-for="Street" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
+                    <div class="form-floating">
+                        <input asp-for="Street" class="form-control" type="text" id="Street" placeholder="Street" required>
+                        <label asp-for="Street">Street</label>
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
-                    <input asp-for="City"  class="form-control" type="text" id="City"  placeholder="City" >
-                    <label class="mx-3">City</label>
-                    <span asp-validation-for="City" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
+                    <div class="form-floating">
+                        <input asp-for="City" class="form-control" type="text" id="City" placeholder="City" required />
+                        <label asp-for="City">City</label>
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6  mb-3 ">
-                    <input asp-for="State" class="form-control" type="text" id="State"  placeholder="State" >
-                    <label class="mx-3">State</label>
-                    <span asp-validation-for="State" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
+                    <div class="form-floating">
+                        <input asp-for="State" class="form-control" type="text" id="State" placeholder="State" required>
+                        <label asp-for="State">State</label>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6  mb-3">
-                    <input asp-for="ZipCode"  class="form-control" type="text" id="Zip Code" placeholder="Zip Code" >
-                    <label class="mx-3">Zip Code</label>
-                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
+                    <div class="form-floating">
+                        <input asp-for="ZipCode" class="form-control" type="text" id="Zip Code" placeholder="Zip Code" required>
+                        <label asp-for="ZipCode">Zip Code</label>
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
 
             <h5 class="pt-4">Patient Information</h5>
             <div class="row input-group justify-content-between align-items-center">
-                <div class="form-floating col-12 mb-3 ">
-                    <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)"></textarea>
-                    <label class="mx-3 ">Enter Brief Details Of Sympotonms (Optional)</label>
-                    <span asp-validation-for="PatientSymptoms" class="text-danger"></span>
-                </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
-                    <input asp-for="PatientFirstName"  class="form-control" type="text" id="First-Name" placeholder="First Name" >
-                    <label class="mx-3">First Name</label>
-                    <span asp-validation-for="PatientFirstName" class="text-danger"></span>
-                </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
-                    <input asp-for="PatientLastName"  class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
-                    <label class="mx-3">Last Name</label>
-                    <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                <div class="col-12 mb-3 ">
+                    <div class="form-floating ">
+                        <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)" required></textarea>
+                        <label asp-for="PatientSymptoms" class="mx-3 ">Enter Brief Details Of Sympotonms (Optional)</label>
+                        <span asp-validation-for="PatientSymptoms" class="text-danger"></span>
+                    </div>
 
                 </div>
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
-                    <input asp-for="PatientDateOfBirth"  class="form-control" type="date" id="date-of-birth"  placeholder="date-of-birth" >
-                    <label class="mx-3">Date Of Birth</label>
-                    <span asp-validation-for="PatientDateOfBirth" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
+                    <div class="form-floating ">
+                        <input asp-for="PatientFirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" required>
+                        <label asp-for="PatientFirstName">First Name</label>
+                        <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3">
+                    <div class="form-floating ">
+                        <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                        <label asp-for="PatientLastName">Last Name</label>
+                        <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3">
+                    <div class="form-floating ">
+                        <input asp-for="PatientDateOfBirth" class="form-control" type="date" id="date-of-birth" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="date-of-birth" required>
+                        <label asp-for="PatientDateOfBirth">Date Of Birth</label>
+                        <span asp-validation-for="PatientDateOfBirth" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
             <h5 class="pt-4">Patient Contact Information</h5>
             <div class=" row input-group mb-3 justify-content-between align-items-center">
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3 ">
-                    <input asp-for="PatientEmail"  class="form-control" type="email" id="Email" placeholder="Email " >
-                    <label class="mx-3">Email</label>
-                    <span asp-validation-for="PatientEmail" class="text-danger"></span>
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
+                    <div class="form-floating">
+                        <input asp-for="PatientEmail" class="form-control" type="email" id="Email" placeholder="Email " required>
+                        <label asp-for="PatientEmail">Email</label>
+                        <span asp-validation-for="PatientEmail" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-floating  mb-3  col-md-6 col-lg-6">
-                    <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone2">
-                    <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+                    <div class="form-floating">
+                        <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone2" required>
+                        <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
             <h5 class="pt-4">Patient Location</h5>
             <div class=" row input-group mb-3 justify-content-between align-items-center">
-                <div class="form-floating col-12 col-md-6 col-lg-6 mb-3">
-                    <input asp-for ="PatientRoomNumber"  class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)" >
-                    <label class="mx-3">Room # / Suit (Optional)</label>
-                    <span asp-validation-for="PatientRoomNumber" class="text-danger"></span>
+                <div class="col-12 col-md-6 col-lg-6 mb-3">
+                    <div class="form-floating">
+                        <input asp-for="PatientRoomNumber" class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)" required>
+                        <label asp-for="PatientRoomNumber">Room # / Suit (Optional)</label>
+                        <span asp-validation-for="PatientRoomNumber" class="text-danger"></span>
+                    </div>
                 </div>
-
             </div>
 
             <div class="btn d-flex justify-content-end">
@@ -140,3 +171,10 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
