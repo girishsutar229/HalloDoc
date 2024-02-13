@@ -39,11 +39,10 @@ namespace HalloDoc.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                var aspNetUserFromDb = _context.AspNetUsers.FirstOrDefault(u => u.UserName == model.UserName );
-                if (aspNetUserFromDb != null && aspNetUserFromDb.PasswordHash == model.PasswordHash)
+                var aspNetUserFromDb = _context.AspNetUsers.FirstOrDefault(a => a.Email == model.Email && a.PasswordHash == model.PasswordHash);
+                if (aspNetUserFromDb != null )
                 {
-                    User userFromDb = _context.Users.FirstOrDefault(a => a.AspNetUserId == aspNetUserFromDb.Id);
+                    User userFromDb = _context.Users.FirstOrDefault(b => b.AspNetUserId == aspNetUserFromDb.Id);
                     CookieOptions cookieOptions = new CookieOptions();
                     cookieOptions.Secure = true;
                     cookieOptions.Expires = DateTime.Now.AddMinutes(10);
@@ -51,13 +50,9 @@ namespace HalloDoc.Controllers
                     TempData["success"] = "User LogIn Successfully";
                     return RedirectToAction("PatientDashboard", "Patient");
                 }
-                else if (aspNetUserFromDb == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid username");
-                }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid password");
+                    ModelState.AddModelError(string.Empty, "Invalid Email OR password");
                 }
             }
             return RedirectToAction("PatientDashboard");
@@ -395,14 +390,34 @@ namespace HalloDoc.Controllers
         //    //ViewBag.user1 = _context.Requests.ToList();
         //    return View();
         //}
+
         public IActionResult PatientDashboard()
         {
+
             int userId = int.Parse(Request.Cookies["UserId"]);
             PatientDashboardViewModel dashboardData = new PatientDashboardViewModel();
             dashboardData.User = _context.Users.FirstOrDefault(a => a.UserId == userId);
-            dashboardData.RequestData = _context.Requests.Where(b => b.UserId == userId).ToList();
+            dashboardData.RequestsData = _context.Requests.Where(b => b.UserId == userId).ToList();
             return View(dashboardData);
         }
+        //[Route("Patient/Login/PatientDashboard", Name = "PatientDashboard")]
+        //public IActionResult PatientDashboard()
+        //{
+        //    if (Request.Cookies.ContainsKey("UserId") && int.TryParse(Request.Cookies["UserId"], out int userId))
+        //    {
+        //        PatientDashboardViewModel dashboardData = new PatientDashboardViewModel();
+        //        dashboardData.User = _context.Users.FirstOrDefault((User a) => a.UserId == userId);
+        //        dashboardData.RequestsData = _context.Requests.Where((Request b) => b.UserId == userId).ToList();
+        //        return View(dashboardData);
+        //    }
+        //    else
+        //    {
+        //        // Handle case where UserId cookie is not present or cannot be parsed
+        //        // For example, redirect to login page or show an error message
+        //        return RedirectToAction("PatientLoginPage");
+        //    }
+        //}
+
 
         /*-----------------------------------------------------ErrorViewModel---------------------------------------------------------------------------------*/
 

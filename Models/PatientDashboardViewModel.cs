@@ -7,6 +7,6 @@ namespace HalloDoc.Models
 
         public User User { get; set; } = new User();
 
-        public IEnumerable<Request> RequestData { get; set; }
+        public IEnumerable<Request> RequestsData { get; set; }
     }
 }

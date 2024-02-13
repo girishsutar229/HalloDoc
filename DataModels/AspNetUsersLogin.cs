@@ -6,14 +6,12 @@ namespace HalloDoc.DataModels
     public class AspNetUsersLogin
     {
         [Key]
-        [StringLength(128)]
-        public string Id { get; set; } = null!;
+       
+        [Required(ErrorMessage = "Please enter the email")]
+        [StringLength(256)]
+        public string Email { get; set; } = null!;
 
-        [Required(ErrorMessage = "UserName is required")]
-        [StringLength(256)] 
-        public string UserName { get; set; } = null!;
-
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Please enter the password")]
         [Column(TypeName = "character varying")]
         public string ?  PasswordHash { get; set; } = null!;
 
