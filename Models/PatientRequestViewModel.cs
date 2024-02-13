@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-
-namespace HalloDoc.DataModels
+namespace HalloDoc.Models
 {
-    public class PatientRequest
+    public class PatientRequestViewModel
     {
+
         [Key]
         public string Symptoms { get; set; }
 
@@ -33,7 +30,7 @@ namespace HalloDoc.DataModels
         [StringLength(23)]
         public string? PhoneNumber { get; set; }
 
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage ="Please the EnterValid password")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Please the EnterValid password")]
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [MaxLength(255)] // Adjust the max length as per your hashing algorithm

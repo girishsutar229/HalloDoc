@@ -35,25 +35,32 @@ namespace HalloDoc.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Patient/Login", Name = "PatientLoginPage")]
-        public IActionResult Patientlogin(AspNetUsersLogin model)
+        public IActionResult Patientlogin(AspNetUsersLoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var aspNetUserFromDb = _context.AspNetUsers.FirstOrDefault(a => a.Email == model.Email && a.PasswordHash == model.PasswordHash);
-                if (aspNetUserFromDb != null )
+                var aspNetUserFromDb = _context.AspNetUsers.FirstOrDefault(a => a.Email == model.Email );
+                if (aspNetUserFromDb != null && aspNetUserFromDb.PasswordHash == model.PasswordHash)
                 {
                     User userFromDb = _context.Users.FirstOrDefault(b => b.AspNetUserId == aspNetUserFromDb.Id);
                     CookieOptions cookieOptions = new CookieOptions();
                     cookieOptions.Secure = true;
-                    cookieOptions.Expires = DateTime.Now.AddMinutes(10);
+                    cookieOptions.Expires = DateTime.Now.AddMinutes(1);
                     Response.Cookies.Append("UserId", userFromDb.UserId.ToString(), cookieOptions);
                     TempData["success"] = "User LogIn Successfully";
                     return RedirectToAction("PatientDashboard", "Patient");
                 }
+                else if (aspNetUserFromDb == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Email address");
+                    TempData["error"] = "Invalid Email address";
+                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid Email OR password");
+                    TempData["error"] = "Invalid PassWord address";
                 }
+             
             }
             return RedirectToAction("PatientDashboard");
         }
@@ -87,7 +94,7 @@ namespace HalloDoc.Controllers
 
         [HttpPost]
         [Route("Patient/RequestTypes/Patient", Name = "PatientsTypeRequest")]
-        public async Task<IActionResult> PatientsTypeRequest(PatientRequest model)
+        public async Task<IActionResult> PatientsTypeRequest(PatientRequestViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -181,7 +188,7 @@ namespace HalloDoc.Controllers
 
         [HttpPost]
         [Route("Patient/RequestTypes/Family", Name = "FamilyTypeRequest")]
-        public async Task<IActionResult> FamilyTypeRequest(FamilyFriendRequest model)
+        public async Task<IActionResult> FamilyTypeRequest(FamilyFriendRequestViewModel model)
         {
 
             if (ModelState.IsValid)
@@ -243,7 +250,7 @@ namespace HalloDoc.Controllers
 
         [HttpPost]
         [Route("Patient/RequestTypes/Concierge", Name = "ConciergeTypeRequest")]
-        public async Task<IActionResult> ConciergeTypeRequest(ConciergeRequest model)
+        public async Task<IActionResult> ConciergeTypeRequest(ConciergeRequestViewModel model)
         {
             var userCheck = _context.Users.FirstOrDefault(u => u.Email == model.Email);
 
@@ -303,7 +310,7 @@ namespace HalloDoc.Controllers
 
         [HttpPost]
         [Route("Patient/RequestTypes/Bussines", Name = "BussinesTypeRequest")]
-        public async Task<IActionResult> BussinesTypeRequest(BussinessRequest model)
+        public async Task<IActionResult> BussinesTypeRequest(BussinessRequestViewModel model)
         {
             var userCheck = _context.Users.FirstOrDefault(u => u.Email == model.Email);
 
