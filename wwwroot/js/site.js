@@ -1,9 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-
+﻿
 //custome js
 
 if (document.getElementById("togglePassword")) {
@@ -46,14 +41,9 @@ function GetFileSizeNameAndType() {
 
     // VALIDATE OR CHECK IF ANY FILE IS SELECTED.
     if (fi.files.length > 0) {
-        // RUN A LOOP TO CHECK EACH SELECTED FILE.
-        for (var i = 0; i <= fi.files.length - 1; i++) {
-            //ACCESS THE SIZE PROPERTY OF THE ITEM OBJECT IN FILES COLLECTION. IN THIS WAY ALSO GET OTHER PROPERTIES LIKE FILENAME AND FILETYPE
-            var fsize = fi.files.item(i).size;
-            totalFileSize = totalFileSize + fsize;
-            document.getElementById('fileName').innerHTML = ' <b>' + fi.files.item(i).name + ' <b>';
-        }
+        document.getElementById('fileName').innerHTML += ' :- Total is'+'<b> ' + fi.files.length + ' </b>';
     }
+
 }
 
 // pop up box show in family submit butoon information submit...................................................................................................................................

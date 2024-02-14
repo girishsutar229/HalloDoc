@@ -64,5 +64,8 @@ namespace HalloDoc.Models
 
         [StringLength(50)]
         public string? PatientRoomNumber { get; set; }
+
+        public List<IFormFile> formFile { get; set; }
+
     }
 }

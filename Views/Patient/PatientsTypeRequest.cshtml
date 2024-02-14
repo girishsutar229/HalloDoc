@@ -9,7 +9,7 @@
             <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
         </div>
 
-        <form asp-controller="Patient" asp-action="PatientsTypeRequest" class="p-4 m-4 shadow boder-0 needs-validation" method="post" novalidate>
+        <form asp-controller="Patient" asp-action="PatientsTypeRequest" class="p-4 m-4 shadow boder-0 needs-validation" enctype="multipart/form-data" method="post" novalidate>
 
             <h5 class="pt-4">Patient Information</h5>
 
@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </label>
-                <input type="file" class="form-control d-none" id="patientFile" multiple onchange="GetFileSizeNameAndType()" />
+                <input  asp-for="formFile" type="file" class="form-control d-none" id="patientFile" multiple onchange="GetFileSizeNameAndType()" />
             </div>
 
             <div class="mb-3 btn d-flex justify-content-end p-2">
