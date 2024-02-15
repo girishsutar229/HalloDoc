@@ -1,0 +1,148 @@
+﻿@model HalloDoc.Models.PatientRequestViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Submit a request";
+}
+
+
+<div class="container mt-2" style="background-color: #FAFAFA;">
+
+    <div class="row m-auto justify-content-center">
+
+        <div class="col col-sm-8">
+            <button class="btn btn-outline-info w-auto float-end" onclick="window.location.href = '@Url.Action("PatientDashboard", "Patient")';" style="float: right;">
+                <svg bootstrap-icon="ChevronLeft" height="15" width="15"></svg>
+                Back
+            </button>
+            <strong class="fs-4 fw-bold">Submit Information</strong>
+        </div>
+
+        <div class="col col-sm-8 my-4 p-4" style="background-color: #FFFFFF; box-shadow: 0px 1px 10px -5px black;">
+
+            <form asp-controller="Patient" asp-action="SubmitRequestForMe" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <h5 class="my-4">Patient Information</h5>
+                <div class="row mb-2">
+                    <div class="col-12 col-sm-12">
+                        <div class="form-floating mb-3" style="overflow: hidden;">
+                            <textarea asp-for="Symptoms" class="form-control" id="PatientSymptoms" placeholder="Symptoms"
+                                      style="height: 100px;"></textarea>
+                            <label for="PatientSymptoms">
+                                Enter Brief Details Of
+                                Symptoms (Optional)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="FirstName" type="text" class="form-control" id="PatientFirstName" placeholder="First Name" required>
+                            <label for="PatientFirstName">First Name</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="LastName" type="text" class="form-control" id="PatientLastName" placeholder="Last Name" required>
+                            <label for="PatientLastName">Last Name</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="BirthDate" class="form-control" id="PatientDOB" placeholder="DD/MM/YYYY" max="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                            <label for="PatientDOB">Date of Birth</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h5 class="my-4">Patient Contact Information</h5>
+                <div class="row mb-2">
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" type="email" class="form-control" id="PatientEmail"
+                                   placeholder="name@example.com" required>
+                            <label for="PatientEmail">Email</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="PhoneNumber" type="tel" class="form-control contact" id="PatientMobile" required>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="my-4">Patient Location</h5>
+                <div class="row mb-2">
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Street" type="text" class="form-control" id="PatientStreet" placeholder="street" required>
+                            <label for="PatientStreet">Street</label>
+                            <div class="invalid-feedback">
+                                <span asp-validation-for="Street" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="City" type="text" class="form-control" id="PatientCity" placeholder="city" required>
+                            <label for="PatientCity">City</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="State" type="text" class="form-control" id="PatientState" placeholder="state" required>
+                            <label for="PatientState">State</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="ZipCode" type="number" class="form-control" id="PatientZipCode" placeholder="zip code" required>
+                            <label for="PatientZipCode">Zip Code</label>
+                            <div class="invalid-feedback"></div>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="PatientRoomNumber" type="text" class="form-control" id="PatientRoomNumber" placeholder="Room / Suite">
+                            <label for="PatientRoomNumber">Room # / Suite (Optional)</label>
+                            <div class="valid-feedback">
+                                This can be Empty....!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <a id="getLocation" onclick="initCoords()" class="btn btn-outline-info"><svg bootstrap-icon="GeoAlt" height="15" width="15"></svg> Map</a>
+                        <input asp-for="Latitude" type="text" id="getlatitude" hidden />
+                        <input asp-for="Longitude" type="text" id="getlongitude" hidden />
+                    </div>
+                </div>
+
+                <h5 class="my-4">(Optional) Upload Photo or Document</h5>
+                <div class="row mb-2">
+                    <div class="col-12 col-sm-12">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" asp-for="formFile" id="UploadButton" style="padding-right: 0px;">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline-dark mx-2 my-2 cancel" asp-action="Dashboard" asp-controller="Patient">Cancel</button>
+                <button type="submit" class="btn btn-primary mx-2 my-2 submit" onclick="checkValidation()">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

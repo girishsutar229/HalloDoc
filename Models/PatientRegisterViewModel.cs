@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HalloDoc.Models
 {
-    public class AspNetUsersLoginViewModel
+    public class PatientRegisterViewModel
     {
         [Key]
 
@@ -15,8 +15,13 @@ namespace HalloDoc.Models
         [Required(ErrorMessage = "Password is required")]
         [Column(TypeName = "character varying")]
         [DataType(DataType.Password)]
-        [MaxLength(255)] 
+        [MaxLength(255)]
         public string? PasswordHash { get; set; } = null!;
 
+        [Required(ErrorMessage = "Please confirm your password")]
+        [Compare("PasswordHash", ErrorMessage = "The password and confirmation password do not match.")]
+        [DataType(DataType.Password)]
+        [NotMapped] // This property won't be mapped to the database
+        public string? ConfirmPassword { get; set; }
     }
 }

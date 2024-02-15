@@ -22,7 +22,6 @@ namespace HalloDoc.Models
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Please Enter PhoneNumber")]
-        [RegularExpression(@"^\+(?:[0-9]?){6,14}[0-9]$", ErrorMessage = "Enter valid Phone number")]
         [StringLength(20)]
         public string? PhoneNumber { get; set; } = null!;
 
@@ -48,7 +47,6 @@ namespace HalloDoc.Models
         public string PatientEmail { get; set; } = null!;
 
         [Required(ErrorMessage = "Please Enter PatientPhoneNumber")]
-        [RegularExpression(@"^\+(?:[0-9]?){6,14}[0-9]$", ErrorMessage = "Enter valid PatientPhoneNumber")]
         [StringLength(20)]
         public string? PatientPhoneNumber { get; set; }
 

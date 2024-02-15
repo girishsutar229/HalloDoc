@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pZZfMMWUUHfFj3bpZ9UHdj385qyxU6wo7v9Jg5BKQvc=",
+  "Hash": "dPDQKjRArHIfRpesFxQqK4DYuITiMaL9lL5zYpMkUSI=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\PatientSite.js",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "js/PatientSite.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\PatientSite.js"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\site.js",
@@ -4064,12 +4083,12 @@
       "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\LesfImage.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\uploads\\New posgraSQL Createe tabl query.txt",
+      "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(11)postgreSql_Query.txt",
       "SourceId": "HalloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\",
       "BasePath": "_content/HalloDoc",
-      "RelativePath": "uploads/New posgraSQL Createe tabl query.txt",
+      "RelativePath": "UploadedFiles/(11)postgreSql_Query.txt",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -4080,15 +4099,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\New posgraSQL Createe tabl query.txt"
+      "OriginalItemSpec": "wwwroot\\UploadedFiles\\(11)postgreSql_Query.txt"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\uploads\\posgraSQL Createe tabl query.txt",
+      "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(12)New posgraSQL Createe tabl query.txt",
       "SourceId": "HalloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\",
       "BasePath": "_content/HalloDoc",
-      "RelativePath": "uploads/posgraSQL Createe tabl query.txt",
+      "RelativePath": "UploadedFiles/(12)New posgraSQL Createe tabl query.txt",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -4099,26 +4118,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\posgraSQL Createe tabl query.txt"
-    },
-    {
-      "Identity": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\uploads\\Session 2_PostgreSQL_intregration.txt",
-      "SourceId": "HalloDoc",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\",
-      "BasePath": "_content/HalloDoc",
-      "RelativePath": "uploads/Session 2_PostgreSQL_intregration.txt",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\Session 2_PostgreSQL_intregration.txt"
+      "OriginalItemSpec": "wwwroot\\UploadedFiles\\(12)New posgraSQL Createe tabl query.txt"
     }
   ]
 }

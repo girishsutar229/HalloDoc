@@ -597,6 +597,14 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\exclamation-circle-fill.svg"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(11)postgreSql_Query.txt",
+      "PackagePath": "staticwebassets\\UploadedFiles\\(11)postgreSql_Query.txt"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(12)New posgraSQL Createe tabl query.txt",
+      "PackagePath": "staticwebassets\\UploadedFiles\\(12)New posgraSQL Createe tabl query.txt"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\css\\patientloginpage.css",
       "PackagePath": "staticwebassets\\css\\patientloginpage.css"
     },
@@ -611,6 +619,10 @@
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\PatientSite.js",
+      "PackagePath": "staticwebassets\\js\\PatientSite.js"
     },
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\ValidationForm.js",
@@ -847,18 +859,6 @@
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
-    },
-    {
-      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\uploads\\New posgraSQL Createe tabl query.txt",
-      "PackagePath": "staticwebassets\\uploads\\New posgraSQL Createe tabl query.txt"
-    },
-    {
-      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\uploads\\Session 2_PostgreSQL_intregration.txt",
-      "PackagePath": "staticwebassets\\uploads\\Session 2_PostgreSQL_intregration.txt"
-    },
-    {
-      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\uploads\\posgraSQL Createe tabl query.txt",
-      "PackagePath": "staticwebassets\\uploads\\posgraSQL Createe tabl query.txt"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.HalloDoc.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -9,39 +9,39 @@
         <div class="backbtn w-100 px-4 d-flex justify-content-end align-items-start">
             <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
         </div>
-        <form asp-controller="Patient" asp-action="FamilyTypeRequest" class="p-4 m-4 shadow boder-0 needs-validation" enctype="multipart/form-data" novalidate >
+        <form asp-controller="Patient" asp-action="FamilyTypeRequest" class="p-4 m-4 shadow boder-0" enctype="multipart/form-data" >
             <h5 class="pt-4">Family/Friend Information</h5>
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" required>
+                        <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" >
                         <label asp-for="FirstName">Your First Name</label>
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                        <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
                         <label asp-for="LastName">Your Last Name</label>
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3  col-md-6 col-lg-6">
                     <div class="form-floating ">
-                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" required>
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" onchange="validatePhoneNumber()">
+                        <span id="textChange"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="Email" class="form-control" type="email" id="Email" placeholder="Email " required>
+                        <input asp-for="Email" class="form-control" type="email" id="Email" placeholder="Email " >
                         <label asp-for="Email">Your Email</label>
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="RelationName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                        <input asp-for="RelationName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
                         <label asp-for="RelationName">Relation With Patient</label>
                         <span asp-validation-for="RelationName" class="text-danger"></span>
                     </div>
@@ -53,21 +53,21 @@
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 mb-3 ">
                     <div class="form-floating ">
-                        <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)" required></textarea>
+                        <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)" ></textarea>
                         <label asp-for="PatientSymptoms" class="mx-3 ">Enter Brief Details Of Sympotonms (Optional)</label>
                         <span asp-validation-for="PatientSymptoms" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="PatientFirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" required>
+                        <input asp-for="PatientFirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" >
                         <label asp-for="PatientFirstName">First Name</label>
                         <span asp-validation-for="PatientFirstName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" required>
+                        <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
                         <label asp-for="PatientLastName">Last Name</label>
                         <span asp-validation-for="PatientLastName" class="text-danger"></span>
 
@@ -75,7 +75,7 @@
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="PatientDateOfBirth" class="form-control" type="date" id="date-of-birth" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="date-of-birth" required>
+                        <input asp-for="PatientDateOfBirth" class="form-control" type="date" id="date-of-birth" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="date-of-birth" >
                         <label asp-for="PatientDateOfBirth">Date Of Birth</label>
                         <span asp-validation-for="PatientDateOfBirth" class="text-danger"></span>
 
@@ -87,7 +87,7 @@
             <div class=" row input-group mb-3 justify-content-between align-items-center">
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating">
-                        <input asp-for="PatientEmail" class="form-control" type="email" id="Email" placeholder="Email " required>
+                        <input asp-for="PatientEmail" class="form-control" type="email" id="Email" placeholder="Email " >
                         <label asp-for="PatientEmail">Email</label>
                         <span asp-validation-for="PatientEmail" class="text-danger"></span>
 
@@ -95,9 +95,8 @@
                 </div>
                 <div class="form-floating  mb-3  col-md-6 col-lg-6">
                     <div class="form-floating">
-                        <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone2" required>
-                        <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
-
+                        <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone2" onchange="validatePhoneNumber()">
+                        <span id="textChange"></span>
                     </div>
                 </div>
             </div>
@@ -106,7 +105,7 @@
             <div class="row input-group mb-3 justify-content-between align-items-center">
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
                     <div class="form-floating">
-                        <input asp-for="PatientStreet" class="form-control" type="text" id="Street" placeholder="Street" required>
+                        <input asp-for="PatientStreet" class="form-control" type="text" id="Street" placeholder="Street" >
                         <label asp-for="PatientStreet">Street</label>
                         <span asp-validation-for="PatientStreet" class="text-danger"></span>
 
@@ -114,7 +113,7 @@
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating">
-                        <input asp-for="PatientCity" class="form-control" type="text" id="City" placeholder="City" required>
+                        <input asp-for="PatientCity" class="form-control" type="text" id="City" placeholder="City" >
                         <label asp-for="PatientCity">City</label>
                         <span asp-validation-for="PatientCity" class="text-danger"></span>
 
@@ -122,7 +121,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6  mb-3 ">
                     <div class="form-floating">
-                        <input asp-for="PatientState" class="form-control" type="text" id="State" placeholder="State" required>
+                        <input asp-for="PatientState" class="form-control" type="text" id="State" placeholder="State" >
                         <label asp-for="PatientState">State</label>
                         <span asp-validation-for="PatientState" class="text-danger"></span>
 
@@ -130,7 +129,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6  mb-3">
                     <div class="form-floating">
-                        <input asp-for="PatientZipCode" class="form-control" type="text" id="Zip Code" placeholder="Zip Code" required>
+                        <input asp-for="PatientZipCode" class="form-control" type="text" id="Zip Code" placeholder="Zip Code" >
                         <label asp-for="PatientZipCode">Zip Code</label>
                         <span asp-validation-for="PatientZipCode" class="text-danger"></span>
 
@@ -138,7 +137,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating">
-                        <input asp-for="PatientRoomNumber" class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)" required>
+                        <input asp-for="PatientRoomNumber" class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)" >
                         <label asp-for="PatientRoomNumber">Room # / Suit (Optional)</label>
                         <span asp-validation-for="PatientRoomNumber" class="text-danger"></span>
 
@@ -166,7 +165,7 @@
             </div>
 
             <div class="mb-3 btn d-flex justify-content-end">
-                <button type="submit" class="btn btn-info mx-3 p-2 px-4 submit" onclick="checkValidation()">Submit</button>
+                <button type="submit" class="btn btn-info mx-3 p-2 px-4 submit">Submit</button>
                 <button type="button" class="btn btn-outline-info mx-2 p-2 px-4">Cancle</button>
             </div>
         </form>

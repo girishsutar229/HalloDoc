@@ -54,3 +54,17 @@ textarea {
   /* Additional CSS styles for centering the modal */
 .modal-dialog { display: flex; align-items: center; justify-content: center; min-height: 100%; }
 .modal-content {  width: 80%;  /*Adjust the width as needed /*/  }
+
+/* CSS */
+
+/* Valid text style */
+
+.valid-text {
+    color: green;
+}
+
+/* Invalid text style */
+.invalid-text {
+    color: red;
+}
+  

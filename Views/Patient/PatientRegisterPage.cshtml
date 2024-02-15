@@ -1,4 +1,4 @@
-﻿@model HalloDoc.Models.AspNetUsersLoginViewModel;
+﻿@model HalloDoc.Models.PatientRegisterViewModel;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +13,6 @@
 
 <body>
 
-    <partial name="_Notification" />
-
     <div class=" main-area d-flex h-100 w-100 position-relative">
         <div class="backgroungdimg"></div>
         <div class="top-logo h-100 w-100 ">
@@ -23,10 +21,9 @@
             <img src="../SRS Screen Shorts/Fig56. Patient site 11.png" alt="">
 
             <div class="form">
-                <a asp-route="PatientSite" class="back-link">&lt; Back</a>
                 <h2>Login To Your Account</h2>
 
-                <form asp-controller="Patient" asp-action="PatientLoginPage" method="post">
+                <form asp-controller="Patient" asp-action="PatientRegisterPage" method="post">
                     <div class="form-floating">
                         <input asp-for="Email" type="email" class="form-control" placeholder="Email">
                         <label asp-for="Email">Email</label>
@@ -39,15 +36,15 @@
                         <i class="bi bi-eye-slash icon" id="togglePassword"></i>
                         <span asp-validation-for="PasswordHash" class="text-danger"></span>
                     </div>
+                    <div class="form-floating">
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" id="ConfirmPassword" placeholder="ConfirmPassword">
+                        <label class="control-label">ConfirmPassword</label>
+                        <i class="bi bi-eye-slash icon" id="toggleConfirmPassword"></i>
+                        <span asp-validation-for="ConfirmPassword" class="text-success"></span>
+                    </div>
 
-                    <button class="buttonlogin" type="submit">Login</button>
-                   
-                    <div class="bottom-links">
-                        <span>Don't Have an Acoounts?</span> <a asp-route="PatientRegisterPage" class="forgotpsw text">Sign UP</a>
-                    </div>
-                    <div class="bottom-links ">
-                       <span>Forgot Password?</span> <a asp-route="ResetePatientpsw" class="forgotpsw text-danger">Click Here </a>
-                    </div>
+                    <button class="buttonlogin" type="submit">Create</button>
+                    
                 </form>
             </div>
             <div class="text-center footer mb-5">
@@ -57,7 +54,7 @@
 
         </div>
     </div>
-    <script src="~/js/PatientSite.js"></script> 
+    <script src="~/js/PatientSite.js"></script>
 </body>
 
 </html>

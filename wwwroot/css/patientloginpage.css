@@ -32,7 +32,7 @@ body { font-family: Arial, sans-serif;  margin: 0;  padding: 0;  min-height: 100
     text-decoration: none;
 }
 
-    .Logout:hover {
+ .Logout:hover {
         color: #ffffff;
         background-color: #0dcaf0;
     }
