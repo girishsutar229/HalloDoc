@@ -1,0 +1,7 @@
+select * from "AspNetUsers"
+
+select * from "User"
+
+select * from "Request"
+
+select * from "RequestClient"

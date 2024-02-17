@@ -10,10 +10,12 @@ namespace HalloDoc.DataModels;
 public partial class AspNetUserRole
 {
     [Key]
-    [StringLength(128)]
-    public string UserId { get; set; } = null!;
+    public long UserId { get; set; }
 
     [Key]
-    [StringLength(128)]
-    public string RoleId { get; set; } = null!;
+    public long RoleId { get; set; }
+
+    [ForeignKey("UserId")]
+    [InverseProperty("AspNetUserRoles")]
+    public virtual AspNetUser User { get; set; } = null!;
 }

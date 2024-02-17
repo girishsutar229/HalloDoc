@@ -1,92 +1,65 @@
-﻿@{
-    ViewData["Title"] = "View Documents";
+﻿@using HalloDoc.Enums;
+@model HalloDoc.Models.PatientDashboardViewModel;
+@{
+    Layout = "_Layout";
 }
 
 
-<body style="background-color: #FAFAFA">
-    <header class="px-3">
-        <a href="index.html"><img src="../images/Fig56. Patient site 1.png" alt="logo" height="80" class="img-main mx-3"></a>
-        <div class="header-all">
-            <div class="d-flex align-items-center mx-2"><strong>Welcome &nbsp;</strong> @ViewBag.name</div>
-            <button onclick="window.location.href = '@Url.Action("Logout", "Patient")';" class="btn btn-outline-info btn-md pb-2 mx-2">Logout</button>
-            <button class="btn btn-outline-info btn-md pb-2 mx-2" id="btnSwitch">
-                <svg bootstrap-icon="Moon" height="15" width="15" id="iconDark" style="display:block;"></svg>
-                <svg bootstrap-icon="BrightnessHigh" height="15" width="15" id="iconLight" style="display:none;"></svg>
-            </button>
-        </div>
-        <hr class="w-100" />
-        <nav>
-            <div class="nav nav-underline" id="nav-tab" role="tablist">
-                <a class="nav-link active fw-bold" id="nav-home-tab" data-bs-toggle="tab"
-                   data-bs-target="#nav-dashboard" type="button" role="tab" aria-controls="nav-dashboard"
-                   aria-selected="true">
-                    Dashboard
-                </a>
-                <a class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                   type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
-                    Profile
-                </a>
-            </div>
-        </nav>
-    </header>
+<div class="mt-2 h-100 d-flex flex-column align-items-center container-fluid">
 
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active p-5" id="nav-dashboard"
-                         role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                        <button class="btn btn-outline-info" onclick="window.location.href = '@Url.Action("Dashboard", "Patient")';" style="float: right;">
-                            <svg bootstrap-icon="ChevronLeft" height="15" width="15"></svg>
-                            Back
-                        </button>
-                        <h4 class="fw-bold">Documents</h4>
-                        <div class="dashboard-table px-4 py-3 mt-4" style="border-radius: 10px;">
-                            <span>Patient's Name</span><br />
-                            <h4 class="fs-5 fw-bold text-info">@ViewBag.name <span class="fs-6 text-muted">(MD051023TETE0001)</span></h4>
-                            <p>Check here for any files that you or the doctors of your subsequent requestors have attached for you to review.</p>
-                            <input type="file" class="form-control mt-4" id="UploadButton" style="padding-right: 0px">
-                            <br />
-                            <br />
-                            <div>
-                                <span class="fw-bold fs-5 w-auto">Documents</span>
-                                <a class="btn btn-outline-info text-info" style="float: right; width: 150px;">Download All</a>
-                            </div>
-
-                            <table class="table table-hover mt-5">
-                                <thead class="table-success">
-                                    <tr>
-                                        <th scope="col"><input type="checkbox" /></th>
-                                        <th scope="col"></th>
-                                        <th scope="col">Uploader</th>
-                                        <th scope="col">Uploaded Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        @foreach (var file in ViewBag.file)
-                                        {
-                                            <th><input type="checkbox" /></th>
-                                            <td>@file.FileName</td>
-                                            <td>@ViewBag.name</td>
-                                            <td>@file.CreatedDate.ToString("MMM dd, yyyy")</td>
-                                            <td><a asp-action="Download" asp-controller="Patient" asp-route-documentid="@file.RequestWiseFileId" asp-route-id="@file.RequestId" class="btn btn-sm btn-outline-info text-info"><svg bootstrap-icon="CloudArrowDown" height="20" width="20"></svg></a></td>
-                                        }
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-                         tabindex="0">
-                        ...
-                    </div>
-                </div>
+    <div class=" container  backbtn w-100 d-flex justify-content-between align-items-start py-5">
+        <h3>Documents</h3>
+        <a asp-action="PatientDashboard" asp-controller="Patient" class="backbutton p-1"> &lt; Back  </a>
+    </div>
+    <div class=" container shadow-lg ">
+        <div class="pt-5">Patient's Name</div>
+        <h4 class="fs-5 fw-bold text-info">@ViewBag.PatientFirstName @ViewBag.PatientLastName <span class="fs-6 text-muted">(@ViewBag.ConfirmationNumber)</span></h4>
+        <p>Check here for any files that you or the doctors of your subsequent requestors have attached for you to review.</p>
+        <form asp-action="UploadDocuments" asp-controller="Patient" asp-route-reqId="@ViewBag.reqId" multiple enctype="multipart/form-data">
+            <div class="input-group">
+                <input asp-for="formFile" type="file" class="form-control" id="inputGroupFile">
+                <button class="btn btn-info"> <i class="bi bi-cloud-arrow-up p-1"></i> Upload</button>
             </div>
+        </form>
+
+        <div class="p-1 mt-3 ">
+            <div class="d-flex justify-content-between">
+                <h5>Documents</h5>
+                <button type="button" class=" btn btn-outline-info " data-bs-toggle="modal" data-bs-target="#examplemodal" onclick="create_request()">
+                    <a asp-action="DownloadAll" asp-controller="Patient" asp-route-id="@ViewBag.RequestId"></a> DownloadAll
+                </button>
+            </div>
+            <table class="table table-hover mt-5">
+                <thead class="table-econdary">
+                    <tr class="bg-secondary">
+                        <th scope="col"><input type="checkbox" /></th>
+                        <th scope="col"></th>
+                        <th scope="col">Uploader</th>
+                        <th scope="col">Uploaded Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        @foreach (var file in ViewBag.document)
+                        {
+                            <tr>
+                                <th><input type="checkbox" /></th>
+                                <td>@file.FileName</td>
+                                <td>Ulode</td>
+                                <td>@file.CreatedDate.ToString("MMM dd, yyyy")</td>
+                                <td><a asp-action="Download" asp-controller="Patient" asp-route-documentid="@file.RequestWiseFileId" 
+                                    asp-route-id="@file.RequestId" class="btn btn-sm btn-outline-info text-info"><i class="bi bi-cloud-download"></i></a>
+                                 </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+
         </div>
     </div>
+</div>
 
-    <partial name="_Footer" />
-    <script src="@Url.Content("~/js/site.js")"></script>
-</body>

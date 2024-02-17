@@ -15,6 +15,7 @@ if (document.getElementById("togglePassword")) {
 }
 
 
+
 // file name for uploading the documents
 function GetFileSizeNameAndType() {
     var fi = document.getElementById('patientFile'); 
@@ -32,14 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });  
 
 //Phonenumbershow with flages for  phone1......................................................................
-var input = document.querySelector("#phone");
-var iti = window.intlTelInput(input, {
-    initialCountry: "in",
-    separateDialCode: true,
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-});
 
-var input = document.querySelector("#phone2");
+
+var input = document.querySelector("#phone");
 var iti = window.intlTelInput(input, {
     initialCountry: "in",
     separateDialCode: true,
@@ -59,6 +55,37 @@ input.addEventListener("countrychange", function () {
 
 // Validate phone number
 function validatePhoneNumber() {
+    if (iti.isValidNumber()) {
+        document.getElementById("textChange").innerHTML = "Valid";
+        document.getElementById("textChange").classList.remove("invalid-text");
+        document.getElementById("textChange").classList.add("valid-text");
+    } else {
+        document.getElementById("textChange").innerHTML = "Invalid";
+        document.getElementById("textChange").classList.remove("valid-text");
+        document.getElementById("textChange").classList.add("invalid-text");
+    }
+}
+
+
+var input = document.querySelector("#phone2");
+var iti = window.intlTelInput(input, {
+    initialCountry: "in",
+    separateDialCode: true,
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+});
+
+input.addEventListener("countrychange", function () {
+    var countryCode = iti.getSelectedCountryData().iso2;
+    var flagContainer = document.querySelector("#flag-container");
+    flagContainer.innerHTML = "";
+    var flag = document.createElement("div");
+    flag.classList.add("iti__flag");
+    flag.classList.add("iti__" + countryCode.toLowerCase());
+    flagContainer.appendChild(flag);
+});
+
+// Validate phone number
+function validatePhoneNumber2() {
     if (iti.isValidNumber()) {
         document.getElementById("textChange").innerHTML = "Valid";
         document.getElementById("textChange").classList.remove("invalid-text");

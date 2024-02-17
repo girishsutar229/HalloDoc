@@ -9,7 +9,7 @@ namespace HalloDoc.DataModels;
 public partial class AspNetRole
 {
     [Key]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [StringLength(256)]
     public string Name { get; set; } = null!;

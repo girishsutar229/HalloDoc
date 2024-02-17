@@ -2,14 +2,15 @@
 using HalloDoc.DataModels;
 using HalloDoc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
+using System.IO.Compression;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace HalloDoc.Controllers
@@ -29,7 +30,6 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
-
         /*---------------------------------------------------------------Patients Register Page---------------------------------------------------------------------------------*/
 
         [Route("Patient/Register", Name = "PatientRegisterPage")]
@@ -46,7 +46,6 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
-
         /*----------------------------------------------------------------------Patient Login Page--------------------------------------------------------------------------*/
         [HttpGet]
         [Route("Patient/Login", Name = "PatientLoginPage")]
@@ -66,18 +65,17 @@ namespace HalloDoc.Controllers
 
                 if (aspNetUserFromDb != null && aspNetUserFromDb.PasswordHash == model.PasswordHash)
                 {
-                    //Cookie
-
-                    //var userFromDb = _context.Users.FirstOrDefault(b => b.AspNetUserId == aspNetUserFromDb.Id);
-                    //CookieOptions cookieOption = new CookieOptions();
-                    //cookieOption.Secure = true;
-                    //cookieOption.Expires = DateTime.Now.AddMinutes(30);
-                    //Response.Cookies.Append("UserID", userFromDb.UserId.ToString(), cookieOption);
+                    var userFromDb = _context.Users.FirstOrDefault(b => b.AspNetUserId == aspNetUserFromDb.Id);
+                    CookieOptions cookieOption = new CookieOptions();
+                    cookieOption.Secure = true;
+                    cookieOption.Expires = DateTime.Now.AddMinutes(30);
+                    Response.Cookies.Append("UserID", userFromDb.UserId.ToString(), cookieOption);
+                    Response.Cookies.Append("EmailId", userFromDb.Email.ToString(), cookieOption);
 
                     //sessions
 
-                    var userFromDb = _context.Users.OrderBy(u => u.UserId).LastOrDefault(u => u.Email == model.Email);
-                    HttpContext.Session.SetString("Email", userFromDb.Email);
+                    //var userFromDb = _context.Users.OrderBy(u => u.UserId).LastOrDefault(u => u.Email == model.Email);
+                    //HttpContext.Session.SetString("Email", userFromDb.Email);
 
                     TempData["success"] = "User LogIn Successfully";
                     return RedirectToAction("PatientDashboard", "Patient");
@@ -99,71 +97,139 @@ namespace HalloDoc.Controllers
             return View(model);
         }
 
-
         /*--------------------------------------------------------------- Patient LogOut Page---------------------------------------------------------------------------------*/
 
-        public IActionResult Logout()
+        public IActionResult PatientLogout()
         {
-            HttpContext.Session.Remove("Email");
-            return View("Patientlogin");
+            //HttpContext.Session.Remove("Email");
+            return RedirectToAction("PatientLoginPage");
         }
 
-        /*----------------------------------------------------------------   PatientDashBoard  ------------------------------------------------------------------------------------*/
+        /*-----------------------------------------------------PatientDashBoard---------------------------------------------------------------------------------*/
 
-
+        [Route("Patient/PatientDashboard", Name = "PatientDashboard")]
         public IActionResult PatientDashboard()
         {
 
-            //int userID = int.Parse(Request.Cookies["UserID"]);
-            //PatientDashboardViewModel dashboardData = new PatientDashboardViewModel();
-            //dashboardData.User = _context.Users.FirstOrDefault(a => a.UserId == userID);
-            //dashboardData.RequestsData = _context.Requests.Where(b => b.UserId == userID).ToList();
-            //return View(dashboardData);
+            int userID = int.Parse(Request.Cookies["UserID"]);
+            PatientDashboardViewModel dashboardData = new PatientDashboardViewModel();
+            dashboardData.User = _context.Users.FirstOrDefault(a => a.UserId == userID);
+            dashboardData.RequestsData = _context.Requests.Where(b => b.UserId == userID).ToList();
+            var dateofbirth = dashboardData.User.IntDate.ToString() + dashboardData.User.StrMonth + dashboardData.User.IntYear.ToString();
+            //ViewBag.DateOfBirth = dateofbirth.ToString("yyyy-dd-MM");
 
-            var email = HttpContext.Session.GetString("Email");
-            if (email == null)
+            if (dashboardData.User.IntDate != null && dashboardData.User.StrMonth != null && dashboardData.User.IntYear != null)
             {
-                return RedirectToAction("PatientLoginPage", "Patient");
+                int month = DateTime.ParseExact(dashboardData.User.StrMonth,"MMMM", CultureInfo.InvariantCulture).Month;
+                int date = (int)dashboardData.User.IntDate;
+                String strDate = date.ToString("D2");
+                String strMonth = month.ToString("D2");
+                dashboardData.BirthDate = dashboardData.User.IntYear + "-" + strMonth + "-" + strDate;
             }
-            List<Request> data = _context.Requests.Where(u => u.Email == email).ToList();
-            Dictionary<int, int> requestIdCounts = new Dictionary<int, int>();
-            foreach (var request in data)
-            {
-                int count = _context.RequestWiseFiles.Count(r => r.RequestId == request.RequestId);
-                requestIdCounts.Add(request.RequestId, count);
-            }
+            return View(dashboardData);
 
-            ViewBag.RequestIdCounts = requestIdCounts;
-
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            ViewBag.username = user?.FirstName + " " + user?.LastName;
-            ViewBag.userid = user?.UserId;
-            HttpContext.Session.SetInt32("userid", user.UserId);
-            ViewBag.file = _context.RequestWiseFiles.ToList();
-            return View(data);
         }
 
-        /*-----------------------------------------------------Patient View DocumentList and Downloaded---------------------------------------------------------------------------------*/
 
-        [Route("Patient/PatientDashboard/Viewdocuments/{id}")]        public IActionResult ViewDocuments(string id)        {
+        /*-----------------------------------------------------UpdateUserProfile---------------------------------------------------------------------------------*/
 
-            var email = HttpContext.Session.GetString("Email");
-            if (email == null)
+        [HttpPost]
+        public async Task<IActionResult> UpdateUserProfile(PatientDashboardViewModel model)
+        {
+            var userid = int.Parse(Request.Cookies["UserID"]);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userid);
+            if (user != null)
             {
-                return View("Dashboard");
+                user.FirstName = model.ProfileEdited.FirstName;
+                user.LastName = model.ProfileEdited.LastName;
+                user.Mobile = model.ProfileEdited.Mobile;
+                user.Street = model.ProfileEdited.Street;
+                user.City = model.ProfileEdited.City;
+
+                user.State = model.ProfileEdited.State;
+                user.ZipCode = model.ProfileEdited.ZipCode;
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                
             }
-            ViewBag.requestId = id;
-            ViewBag.file = _context.RequestWiseFiles.Where(d => d.RequestId.ToString() == id).ToList();
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            ViewBag.name = user?.LastName + " " + user?.FirstName;
-            return View();        }        public IActionResult Download(int documentid)        {            var filename = _context.RequestWiseFiles.FirstOrDefault(u => u.RequestWiseFileId == documentid);
-            //  var filepath = Path.Combine(hostingEnvironment.WebRootPath, "uploads", filename.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/patient-uploads", filename.FileName);
 
-            return File(System.IO.File.ReadAllBytes(filePath), "multipart/form-data", System.IO.Path.GetFileName(filePath));
-        }
+            return RedirectToAction("ViewDocument", "Patient");
+        }
 
-        /*---------------------------------------------------------------Patientdashboard Request OR  ME&someOneElse---------------------------------------------------------------------------------*/
+        /*---------------------------------------------------------PatientViewDocument---------------------------------------------------------------------------------*/
+
+        [Route("Patient/ViewDocument", Name = "ViewDocument")]        public IActionResult ViewDocument(int reqId)        {            var document = _context.RequestWiseFiles.Where(u => u.RequestId == reqId).ToList();
+            ViewBag.document = document;
+
+            var request = _context.Requests.FirstOrDefault(u => u.RequestId == reqId);
+            ViewBag.Uploader = request?.FirstName;
+            ViewBag.reqId = reqId;
+            ViewBag.ConfirmationNumber = request?.ConfirmationNumber.ToString();
+
+            var requestclient=_context.RequestClients.FirstOrDefault(u => u.RequestId == reqId);
+            ViewBag.PatientFirstName = requestclient?.FirstName;
+            ViewBag.PatientLastName=requestclient?.LastName;
+
+            //var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+            //ViewBag.FirstName = user?.FirstName;
+            //ViewBag.LastName = user?.LastName;
+
+            return View();
+        }        public IActionResult Download(int documentid)        {            var filename = _context.RequestWiseFiles.FirstOrDefault(u => u.RequestWiseFileId == documentid);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", filename.FileName);            return File(System.IO.File.ReadAllBytes(filePath), "multipart/form-data", System.IO.Path.GetFileName(filePath));        }
+
+        public IActionResult DownloadAll(int requestId)
+        {
+            var files = _context.RequestWiseFiles.Where(u => u.RequestId == requestId).ToList();
+
+            if (files.Any())
+            {
+                var zipFileName = $"Request_{requestId}_Files.zip";
+                var zipFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", zipFileName);
+
+                using (var zipArchive = ZipFile.Open(zipFilePath, ZipArchiveMode.Create))
+                {
+                    foreach (var file in files)
+                    {
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", file.FileName);
+                        zipArchive.CreateEntryFromFile(filePath, file.FileName);
+                    }
+                }
+
+                return File(System.IO.File.ReadAllBytes(zipFilePath), "application/zip", zipFileName);
+            }
+
+            // Handle case when no files are found for the given request ID
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult UploadDocuments(int reqId, PatientDashboardViewModel model)
+        {
+            //For File Store
+            if (model.formFile != null && model.formFile.Count > 0)
+            {
+                foreach (var file in model.formFile)
+                {
+
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", file.FileName);
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        file.CopyTo(stream);
+                        RequestWiseFile requestwiseFile = new RequestWiseFile();
+                        requestwiseFile.RequestId = reqId;
+                        requestwiseFile.FileName = file.FileName;
+                        requestwiseFile.CreatedDate = DateTime.Now;
+                        requestwiseFile.DocType = 1;
+
+                        _context.RequestWiseFiles.Add(requestwiseFile);
+                        _context.SaveChanges();
+                    }
+                }
+            }
+            return RedirectToAction("PatientDashboard");
+        }
+
+        /*---------------------------------------------------------------PatientdashboardRequest Of ME & SomeOne---------------------------------------------------------------------------------*/
 
         [Route("Patient/Login/PatientDashboard/RequestMe", Name = "RequestMe")]
         public IActionResult RequestMe()
@@ -176,16 +242,15 @@ namespace HalloDoc.Controllers
             return View();
         }
 
+        /*---------------------------------------------------------------SubmitRequestTypes---------------------------------------------------------------------------------*/
 
-        /*--------------------------------------------------------------- Submit TypesOfRequest ---------------------------------------------------------------------------------*/
-
-        [Route("Patient/RequestTypes", Name = "TypesOfSubmitRequest")]
-        public IActionResult TypesOfSubmitRequest()
+        [Route("Patient/RequestTypes", Name = "SubmitRequestTypes")]
+        public IActionResult SubmitRequestTypes()
         {
             return View();
 
         }
-        /*--------------------------------------------------------------- PatientsTypeRequest---------------------------------------------------------------------------------*/
+        /*---------------------------------------------------------------PatientsTypeRequest---------------------------------------------------------------------------------*/
         [HttpGet]
         [Route("Patient/RequestTypes/Patient", Name = "PatientsTypeRequest")]
         public IActionResult PatientsTypeRequest()
@@ -230,6 +295,9 @@ namespace HalloDoc.Controllers
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Email = model.Email,
+                        IntDate = model.BirthDate.Day,
+                        IntYear = model.BirthDate.Year,
+                        StrMonth = model.BirthDate.ToString("MMMM"),
                         Mobile = model.PhoneNumber,
                         ZipCode = model.ZipCode,
                         State = model.State,
@@ -244,7 +312,7 @@ namespace HalloDoc.Controllers
                 }
 
                 var existingUser = _context.Users.FirstOrDefault(u => u.Email == model.Email); //Existing user cheking for userId
-                Request request = new Request
+                var request = new Request
                 {
                     UserId = existingUser?.UserId,
                     RequestTypeId = 1,
@@ -275,7 +343,8 @@ namespace HalloDoc.Controllers
                     State = model.State,
                     City = model.City,
                     Street = model.Street,
-                    Address = model.PatientRoomNumber + " ," + model.City + " ," + model.State + " ," + model.ZipCode,
+                    Address = model.City + " " + model.State + " " + model.ZipCode,
+                    Location = model.PatientRoomNumber,
 
                 };
 
@@ -287,8 +356,8 @@ namespace HalloDoc.Controllers
                 {
                     foreach (var file in model.formFile)
                     {
-                        var fileId = _context.RequestWiseFiles.Count() + 1;
-                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", ("(" + fileId.ToString() + ")") + file.FileName);
+
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", file.FileName);
                         using (var stream = System.IO.File.Create(filePath))
                         {
                             file.CopyTo(stream);
@@ -305,6 +374,7 @@ namespace HalloDoc.Controllers
                         }
                     }
                 }
+
 
                 return RedirectToAction("PatientSite", "Patient");
             }
@@ -366,7 +436,8 @@ namespace HalloDoc.Controllers
                     State = model.PatientState,
                     City = model.PatientCity,
                     Street = model.PatientStreet,
-                    Address = model.PatientRoomNumber + " ," + model.PatientCity + " ," + model.PatientState + " ," + model.PatientZipCode,
+                    Address = model.PatientCity + " " + model.PatientState + " " + model.PatientZipCode,
+                    Location = model.PatientRoomNumber,
 
                 };
                 _context.RequestClients.Add(requestclient);
@@ -397,6 +468,8 @@ namespace HalloDoc.Controllers
                     }
                 }
                 return RedirectToAction("PatientSite", "Patient");
+
+
 
             }
 
@@ -457,7 +530,9 @@ namespace HalloDoc.Controllers
                     IntDate = model.PatientDateOfBirth.Day,
                     IntYear = model.PatientDateOfBirth.Year,
                     StrMonth = model.PatientDateOfBirth.ToString("MMMM"),
-                    Address = model.PatientRoomNumber + " ," + model.Street + " ," + model.City + " ," + model.State + " ," + model.ZipCode,
+                    Address = model.Street + "" + model.City + " " + model.State + " " + model.ZipCode,
+                    Location = model.PatientRoomNumber,
+
                 };
 
                 _context.RequestClients.Add(newRequestClient);
@@ -526,7 +601,8 @@ namespace HalloDoc.Controllers
                     State = model.PatientState,
                     City = model.PatientCity,
                     Street = model.PatientStreet,
-                    Address = model.PatientRoomNumber + " ," + model.PatientCity + " ," + model.PatientState + " ," + model.PatientZipCode,
+                    Address = model.PatientCity + " " + model.PatientState + " " + model.PatientZipCode,
+                    Location = model.PatientRoomNumber,
                 };
 
                 _context.RequestClients.Add(newRequestClient);
@@ -537,14 +613,20 @@ namespace HalloDoc.Controllers
             return View(model);
 
         }
+
+
+
         /*-----------------------------------------------------SubmitRequestForMe---------------------------------------------------------------------------------*/
-        public IActionResult SubmitRequestForMe()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //[Route("Patient/PatientDashboard/RequestMe/{id}", Name = "RequestMe")]
+        //public IActionResult RequestMe()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
-        public async Task<IActionResult> SubmitRequestForMe(PatientRequestViewModel model)
+        //[Route("Patient/PatientDashboard/RequestMe", Name = "RequestForMe")]
+        public async Task<IActionResult> RequestMe(PatientRequestViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -618,15 +700,18 @@ namespace HalloDoc.Controllers
             return View(model);
         }
 
-
-        public IActionResult SubmitRequestForSomeOne()
-        {
-            return View();
-        }
+        /*-----------------------------------------------------SubmitRequestForSomeone---------------------------------------------------------------------------------*/
+        //[HttpGet]
+        //[Route("Patient/PatientDashboard/RequestSomeOne", Name = "RequestSomeOne")]
+        //public IActionResult RequestSomeOne()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
+        //[Route("Patient/PatientDashboard/RequestSomeOne", Name = "RequestSomeOne")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SubmitRequestForSomeone(FamilyFriendRequestViewModel model)
+        public async Task<IActionResult> RequestSomeOne(FamilyFriendRequestViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -718,11 +803,7 @@ namespace HalloDoc.Controllers
         }
 
     }
-
-   
-
 }
-
 
 
 

@@ -14,7 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\_PopupForRequestTypes.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Search Records\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\_PopupForRequestTypes.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

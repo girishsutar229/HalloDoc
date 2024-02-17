@@ -12,13 +12,13 @@ public partial class AspNetUser
     public long Id { get; set; }
 
     [StringLength(256)]
-    public string? UserName { get; set; }
+    public string UserName { get; set; } = null!;
 
     [Column(TypeName = "character varying")]
     public string? PasswordHash { get; set; }
 
     [StringLength(256)]
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
     [StringLength(20)]
     public string? PhoneNumber { get; set; }
@@ -32,6 +32,9 @@ public partial class AspNetUser
 
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? ModifiedDate { get; set; }
+
+    [InverseProperty("User")]
+    public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; } = new List<AspNetUserRole>();
 
     [InverseProperty("AspNetUser")]
     public virtual ICollection<User> Users { get; set; } = new List<User>();

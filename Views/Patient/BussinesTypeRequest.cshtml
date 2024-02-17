@@ -2,13 +2,14 @@
 @{
     Layout = "_Layout";
 }
+<partial name="~/Views/Shared/_Header.cshtml" />
 
-<div class=" mt-2 h-100 d-flex flex-column justify-content-between align-items-center">
-    <div class="container mb-2 pb-5">
-        <div class="backbtn w-100 px-4 d-flex justify-content-end align-items-start">
+<div class=" mt-2 min-h-100 d-flex flex-column justify-content-between align-items-center">
+    <div class="container  pb-5">
+        <div class="backbtn py-3  d-flex justify-content-end align-items-start">
             <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
         </div>
-        <form asp-controller="Patient" asp-action="BussinesTypeRequest" class="p-4 m-4 shadow boder-0 ">
+        <form asp-controller="Patient" asp-action="BussinesTypeRequest" class="px-4 shadow boder-0 ">
             <h5 class="pt-4">Bussines Information</h5>
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
@@ -28,7 +29,7 @@
                 </div>
                 <div class="mb-3  col-md-6 col-lg-6">
                     <div class="form-floating ">
-                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone"  onchange="validatePhoneNumber()">
+                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone"  onchange="validatePhoneNumber2()">
                         <span id="textChange"></span>
                     </div>
                 </div>
@@ -149,32 +150,9 @@
             </div>
         </form>
     </div>
-    <!-- pop up box show when email are not connecting -->
-    <div class="modal fade" id="customModal" tabindex="-1" role="dialog" aria-labelledby="customModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
 
-                <div class="modal-body text-center">
-                    <div class="m-3">
-                        <img src="~/SRS Screen Shorts/exclamation-circle-fill.svg" class="border img-fluid border-warning p-1 rounded-circle mx-auto  " alt="...">
-                    </div>
-                    <h4 class="m-4">Information</h4>
-                    <p class="popup mb-3">
-                        When submiting the request you must provide the correct contact information for the patient or
-                        the responible party. Failure to provide the correct email and phone number will delay service
-                        or declined.
-                    </p>
-                    <div class="text-center m-2">
-                        <button type="button" class="btn btn-primary btn1 m-3" data-bs-dismiss="modal">OK</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
+    <partial name="~/Views/Shared/_PopUpModelForRequest.cshtml" />
+<partial name="~/Views/Shared/_Footer.cshtml" />
 
 @section Scripts {
     @{

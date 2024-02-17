@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using HalloDoc.DataModels;
 
 namespace HalloDoc.Models
 {
@@ -72,9 +73,9 @@ namespace HalloDoc.Models
 
         public List<IFormFile> formFile { get; set; }
 
-        public string Longitude { get; set; }
+        public string? Longitude { get; set; }
 
-        public string Latitude { get; set; }
+        public string? Latitude { get; set; }
 
     }
 }
