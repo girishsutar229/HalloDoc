@@ -1,20 +1,20 @@
-﻿@model HalloDoc.Models.FamilyFriendRequestViewModel
+﻿@model HalloDoc.Models.PatientCreateNewRequestViewModel
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Submit a request";
+    ViewData["Title"] = "Request_For_SomeOne";
 }
 
 <div class="mt-2 h-100 d-flex flex-column justify-content-between align-items-center">
     <div class="container pb-5">
         <div class="backbtn w-100 px-4 d-flex justify-content-between align-items-start">
             <h3 class="fs-4 fw-bold">Submit Information</h3>
-            <a asp-route="PatientDashboard" class="backbutton p-1"> &lt; Back  </a>
+            <a asp-route="PatientDashboard" class="btn btn-outline-info  p-1"> &lt; Back  </a>
         </div>
 
-        <form asp-controller="Patient" asp-action="RequestSomeOne" class="p-4 m-4 shadow boder-0" enctype="multipart/form-data" method="post">
+        <form asp-controller="Patient" asp-action="RequestSomeOne" class="p-4 m-4 shadow boder-0 bg-white" enctype="multipart/form-data" method="post">
 
-            <h5 class="pt-4">Patient Information</h5>
+            <h5 class="pt-1">Patient Information</h5>
 
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 mb-3 ">
@@ -27,16 +27,16 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="FirstName" class="form-control" id="First-Name" placeholder="First Name">
-                        <label asp-for="FirstName">Your First Name</label>
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <input asp-for="PatientFirstName" class="form-control" id="First-Name" placeholder="First Name">
+                        <label asp-for="PatientFirstName">Your First Name</label>
+                        <span asp-validation-for="PatientFirstName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name">
-                        <label asp-for="LastName">Your Last Name</label>
-                        <span asp-validation-for="LastName" class="text-danger"></span>
+                        <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name">
+                        <label asp-for="PatientLastName">Your Last Name</label>
+                        <span asp-validation-for="PatientLastName" class="text-danger"></span>
                     </div>
 
                 </div>
@@ -55,15 +55,15 @@
             <div class=" row input-group mb-3 justify-content-between align-items-center">
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="Email" class="form-control" id="Email" placeholder="Email ">
-                        <label asp-for="Email">Your Email</label>
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input asp-for="PatientEmail" class="form-control" id="Email" placeholder="Email ">
+                        <label asp-for="PatientEmail">Your Email</label>
+                        <span asp-validation-for="PatientEmail" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" onchange="validatePhoneNumber()">
-                        <span id="textChange"></span>
+                        <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" onchange="validatePhoneNumber()">
+                        <span id="PatientPhoneNumber"></span>
                     </div>
                 </div>
             </div>
@@ -109,8 +109,19 @@
                     <input asp-for="Latitude" type="text" id="getlatitude" hidden />
                     <input asp-for="Longitude" type="text" id="getlongitude" hidden />
                 </div>
-
             </div>
+
+            <h5 class="pt-4">Relation</h5>
+            <div class="row input-group mb-3 justify-content-between align-items-center">
+                <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
+                    <div class="form-floating">
+                        <input asp-for="PatientRelationName" class="form-control" type="text" id="Room" name="Room" placeholder="Relation With Patient (Optional)">
+                        <label asp-for="PatientRelationName">Relation With Patient (Optional)</label>
+                        <span asp-validation-for="PatientRelationName" class="text-danger"></span>
+                    </div>
+                </div>
+             </div>
+
             <h5 class="pt-4">(Optional) Upload Photo Or document</h5>
             <div class="input-group mb-3">
                 <label class="input-group-text custom-file-upload w-100" for="patientFile">

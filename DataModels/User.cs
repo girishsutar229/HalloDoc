@@ -81,4 +81,5 @@ public partial class User
     [ForeignKey("AspNetUserId")]
     [InverseProperty("Users")]
     public virtual AspNetUser? AspNetUser { get; set; }
+  
 }

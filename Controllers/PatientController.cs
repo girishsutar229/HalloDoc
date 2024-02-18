@@ -120,7 +120,7 @@ namespace HalloDoc.Controllers
 
             if (dashboardData.User.IntDate != null && dashboardData.User.StrMonth != null && dashboardData.User.IntYear != null)
             {
-                int month = DateTime.ParseExact(dashboardData.User.StrMonth,"MMMM", CultureInfo.InvariantCulture).Month;
+                int month = DateTime.ParseExact(dashboardData.User.StrMonth, "MMMM", CultureInfo.InvariantCulture).Month;
                 int date = (int)dashboardData.User.IntDate;
                 String strDate = date.ToString("D2");
                 String strMonth = month.ToString("D2");
@@ -158,7 +158,10 @@ namespace HalloDoc.Controllers
 
         /*---------------------------------------------------------PatientViewDocument---------------------------------------------------------------------------------*/
 
-        [Route("Patient/ViewDocument", Name = "ViewDocument")]        public IActionResult ViewDocument(int reqId)        {            var document = _context.RequestWiseFiles.Where(u => u.RequestId == reqId).ToList();
+        [Route("Patient/ViewDocument", Name = "ViewDocument")]
+        public IActionResult ViewDocument(int reqId)
+        {
+            var document = _context.RequestWiseFiles.Where(u => u.RequestId == reqId).ToList();
             ViewBag.document = document;
 
             var request = _context.Requests.FirstOrDefault(u => u.RequestId == reqId);
@@ -166,13 +169,9 @@ namespace HalloDoc.Controllers
             ViewBag.reqId = reqId;
             ViewBag.ConfirmationNumber = request?.ConfirmationNumber.ToString();
 
-            var requestclient=_context.RequestClients.FirstOrDefault(u => u.RequestId == reqId);
-            ViewBag.PatientFirstName = requestclient?.FirstName;
-            ViewBag.PatientLastName=requestclient?.LastName;
-
-            //var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
-            //ViewBag.FirstName = user?.FirstName;
-            //ViewBag.LastName = user?.LastName;
+            var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+            ViewBag.FirstName = user?.FirstName;
+            ViewBag.LastName = user?.LastName;
 
             return View();
         }        public IActionResult Download(int documentid)        {            var filename = _context.RequestWiseFiles.FirstOrDefault(u => u.RequestWiseFileId == documentid);
@@ -625,76 +624,82 @@ namespace HalloDoc.Controllers
         //}
 
         [HttpPost]
-        //[Route("Patient/PatientDashboard/RequestMe", Name = "RequestForMe")]
-        public async Task<IActionResult> RequestMe(PatientRequestViewModel model)
+        [Route("Patient/Login/PatientDashboard/RequestMe", Name = "RequestForMe")]
+        public async Task<IActionResult> RequestMe(PatientCreateNewRequestViewModel model)
         {
 
             if (!ModelState.IsValid)
             {
-                var uid = HttpContext.Session.GetInt32("userid");
-                var newRequest = new Request
+                var userid = int.Parse(Request.Cookies["UserID"]);
+                var user = _context.Users.FirstOrDefault(u => u.UserId == userid);
+
+                if (user != null)
                 {
-                    RequestTypeId = 1,
-                    UserId = uid,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    CreatedDate = DateTime.Now,
-                    Email = model.Email,
-                    Status = 1,
 
-                };
-
-                _context.Requests.Add(newRequest);
-                await _context.SaveChangesAsync();
-
-                var requestCheck = _context.Requests.FirstOrDefault(r => r.Email == model.Email);
-
-                var newClientRequest = new RequestClient
-                {
-                    RequestId = requestCheck.RequestId,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    Email = model.Email,
-                    IntDate = model.BirthDate.Day,
-                    IntYear = model.BirthDate.Year,
-                    StrMonth = model.BirthDate.ToString("MMMM"),
-                    ZipCode = model.ZipCode,
-                    State = model.State,
-                    City = model.City,
-                    Street = model.Street,
-                    Address = model.PatientRoomNumber + " ," + model.City + " ," + model.State + " ," + model.ZipCode,
-
-                };
-                _context.RequestClients.Add(newClientRequest);
-                await _context.SaveChangesAsync();
-
-                //For File Store
-                if (model.formFile != null && model.formFile.Count > 0)
-                {
-                    foreach (var file in model.formFile)
+                    var newRequest = new Request
                     {
-                        var fileId = _context.RequestWiseFiles.Count() + 1;
-                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", ("(" + fileId.ToString() + ")") + file.FileName);
+                        RequestTypeId = 1,
+                        UserId = user?.UserId,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        PhoneNumber = user.Mobile,
+                        CreatedDate = DateTime.Now,
+                        Email = user.Email,
+                        Status = 1,
 
-                        using (var stream = System.IO.File.Create(filePath))
+                    };
+
+                    _context.Requests.Add(newRequest);
+                    await _context.SaveChangesAsync();
+
+                    var requestCheck = _context.Requests.FirstOrDefault(r => r.Email == model.PatientEmail);
+
+                    var newClientRequest = new RequestClient
+                    {
+                        RequestId = requestCheck.RequestId,
+                        FirstName = model.PatientFirstName,
+                        LastName = model.PatientLastName,
+                        PhoneNumber = model.PatientPhoneNumber,
+                        Email = model.PatientEmail,
+                        IntDate = model.PatientDateOfBirth.Day,
+                        IntYear = model.PatientDateOfBirth.Year,
+                        StrMonth = model.PatientDateOfBirth.ToString("MMMM"),
+                        ZipCode = model.PatientZipCode,
+                        State = model.PatientState,
+                        City = model.PatientCity,
+                        Street = model.PatientStreet,
+                        Address = model.PatientRoomNumber + " ," + model.PatientCity + " ," + model.PatientState + " ," + model.PatientZipCode,
+
+                    };
+                    _context.RequestClients.Add(newClientRequest);
+                    await _context.SaveChangesAsync();
+
+                    //For File Store
+                    if (model.formFile != null && model.formFile.Count > 0)
+                    {
+                        foreach (var file in model.formFile)
                         {
-                            file.CopyTo(stream);
+                            var fileId = _context.RequestWiseFiles.Count() + 1;
+                            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", ("(" + fileId.ToString() + ")") + file.FileName);
 
-                            var userCheck = _context.Requests.OrderBy(e => e.RequestId).LastOrDefault(e => e.Email == model.Email);
-                            RequestWiseFile requestwiseFile = new RequestWiseFile();
-                            requestwiseFile.RequestId = userCheck.RequestId;
-                            requestwiseFile.FileName = file.FileName;
-                            requestwiseFile.CreatedDate = DateTime.Now;
-                            requestwiseFile.DocType = 1;
+                            using (var stream = System.IO.File.Create(filePath))
+                            {
+                                file.CopyTo(stream);
 
-                            _context.RequestWiseFiles.Add(requestwiseFile);
-                            _context.SaveChanges();
+                                var userCheck = _context.Requests.OrderBy(e => e.RequestId).LastOrDefault(e => e.Email == user.Email);
+                                RequestWiseFile requestwiseFile = new RequestWiseFile();
+                                requestwiseFile.RequestId = userCheck.RequestId;
+                                requestwiseFile.FileName = file.FileName;
+                                requestwiseFile.CreatedDate = DateTime.Now;
+                                requestwiseFile.DocType = 1;
+
+                                _context.RequestWiseFiles.Add(requestwiseFile);
+                                _context.SaveChanges();
+                            }
                         }
                     }
-                }
 
+                }
                 return RedirectToAction("PatientDashboard", "Patient");
             }
             return View(model);
@@ -709,9 +714,9 @@ namespace HalloDoc.Controllers
         //}
 
         [HttpPost]
-        //[Route("Patient/PatientDashboard/RequestSomeOne", Name = "RequestSomeOne")]
+        [Route("Patient/Login/PatientDashboard/RequestSomeOne", Name = "RequestSomeOne")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RequestSomeOne(FamilyFriendRequestViewModel model)
+        public async Task<IActionResult> RequestSomeOne(PatientCreateNewRequestViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -722,75 +727,92 @@ namespace HalloDoc.Controllers
                 var month = DateTime.Now.Month.ToString("00");
                 var totalRequests = _context.Requests.Where(r => r.CreatedDate.Date == DateTime.Now.Date).Count().ToString("0000");
 
-                var exitinguser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
-                var request = new Request
+                
+                var userid = int.Parse(Request.Cookies["UserID"]);
+                var user = _context.Users.FirstOrDefault(u => u.UserId == userid);
+
+                if (user != null)
                 {
-                    UserId = exitinguser?.UserId,
-                    RequestTypeId = 2,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    Email = model.Email,
-                    CreatedDate = DateTime.Now,
-                    RelationName = model.RelationName,
-                    Status = 1,
-                    ConfirmationNumber = (stateabbr + date + month + lasttwocharsfromlname + firsttwocharsfromfname + totalRequests).ToUpper(),
-                };
-                _context.Requests.Add(request);
 
-                await _context.SaveChangesAsync();
-
-                var requestCheck = _context.Requests.FirstOrDefault(u => u.Email == model.Email);
-                var requestclient = new RequestClient
-                {
-                    RequestId = requestCheck.RequestId,
-                    FirstName = model.PatientFirstName,
-                    LastName = model.PatientLastName,
-                    PhoneNumber = Convert.ToString(model.PatientPhoneNumber),
-                    Email = model.PatientEmail,
-                    IntDate = model.PatientDateOfBirth.Day,
-                    IntYear = model.PatientDateOfBirth.Year,
-                    StrMonth = model.PatientDateOfBirth.ToString("MMMM"),
-                    ZipCode = model.PatientZipCode,
-                    State = model.PatientState,
-                    City = model.PatientCity,
-                    Street = model.PatientStreet,
-                    Address = model.PatientRoomNumber + " ," + model.PatientCity + " ," + model.PatientState + " ," + model.PatientZipCode,
-
-                };
-                _context.RequestClients.Add(requestclient);
-                await _context.SaveChangesAsync();
-
-                //For File Store
-                if (model.formFile != null && model.formFile.Count > 0)
-                {
-                    foreach (var file in model.formFile)
+                    var request = new Request
                     {
-                        var fileId = _context.RequestWiseFiles.Count() + 1;
-                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", ("(" + fileId.ToString() + ")") + file.FileName);
+                        UserId = user?.UserId,
+                        RequestTypeId = 2,
+                        FirstName = user?.FirstName,
+                        LastName = user.LastName,
+                        PhoneNumber = user.Mobile,
+                        Email = user.Email,
+                        CreatedDate = DateTime.Now,
+                        RelationName = model.PatientRelationName,
+                        Status = 1,
+                        ConfirmationNumber = (stateabbr + date + month + lasttwocharsfromlname + firsttwocharsfromfname + totalRequests).ToUpper(),
+                    };
+                    _context.Requests.Add(request);
 
-                        using (var stream = System.IO.File.Create(filePath))
+                    await _context.SaveChangesAsync();
+
+                    var requestCheck = _context.Requests.FirstOrDefault(u => u.Email == model.PatientEmail);
+                    var requestclient = new RequestClient
+                    {
+                        RequestId = requestCheck.RequestId,
+                        FirstName = model.PatientFirstName,
+                        LastName = model.PatientLastName,
+                        PhoneNumber = model.PatientPhoneNumber,
+                        Email = model.PatientEmail,
+                        IntDate = model.PatientDateOfBirth.Day,
+                        IntYear = model.PatientDateOfBirth.Year,
+                        StrMonth = model.PatientDateOfBirth.ToString("MMMM"),
+                        ZipCode = model.PatientZipCode,
+                        State = model.PatientState,
+                        City = model.PatientCity,
+                        Street = model.PatientStreet,
+                        Address = model.PatientRoomNumber + " ," + model.PatientCity + " ," + model.PatientState + " ," + model.PatientZipCode,
+
+                    };
+                    _context.RequestClients.Add(requestclient);
+                    await _context.SaveChangesAsync();
+
+                    //For File Store
+                    if (model.formFile != null && model.formFile.Count > 0)
+                    {
+                        foreach (var file in model.formFile)
                         {
-                            file.CopyTo(stream);
+                            var fileId = _context.RequestWiseFiles.Count() + 1;
+                            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles", ("(" + fileId.ToString() + ")") + file.FileName);
 
-                            var userCheck = _context.Requests.OrderBy(e => e.RequestId).LastOrDefault(e => e.Email == model.Email);
-                            RequestWiseFile requestwiseFile = new RequestWiseFile();
-                            requestwiseFile.RequestId = userCheck.RequestId;
-                            requestwiseFile.FileName = file.FileName;
-                            requestwiseFile.CreatedDate = DateTime.Now;
-                            requestwiseFile.DocType = 1;
+                            using (var stream = System.IO.File.Create(filePath))
+                            {
+                                file.CopyTo(stream);
 
-                            _context.RequestWiseFiles.Add(requestwiseFile);
-                            _context.SaveChanges();
+                                var userCheck = _context.Requests.OrderBy(e => e.RequestId).LastOrDefault(e => e.Email == user.Email);
+                                RequestWiseFile requestwiseFile = new RequestWiseFile();
+                                requestwiseFile.RequestId = userCheck.RequestId;
+                                requestwiseFile.FileName = file.FileName;
+                                requestwiseFile.CreatedDate = DateTime.Now;
+                                requestwiseFile.DocType = 1;
+
+                                _context.RequestWiseFiles.Add(requestwiseFile);
+                                _context.SaveChanges();
+                            }
                         }
                     }
                 }
+               
                 return RedirectToAction("PatientDashboard", "Patient");
 
             }
 
             return View(model);
 
+        }
+
+        /*-----------------------------------------------------Patient AgreementView---------------------------------------------------------------------------------*/
+
+        [HttpGet]
+        [Route("Patient/AgreementView", Name = "AgreementView")]
+        public IActionResult AgreementView()
+        {
+            return View();
         }
 
 

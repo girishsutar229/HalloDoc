@@ -4,13 +4,13 @@
 }
 <partial name="~/Views/Shared/_Header.cshtml" />
 
-<div class="mt-2 min-h-100 d-flex flex-column justify-content-between align-items-center">
-    <div class="container pb-5">
-        <div class="backbtn py-3 d-flex justify-content-end align-items-start">
-            <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
+<div class="min-h-100 d-flex flex-column justify-content-between align-items-center ">
+    <div class="container pb-5 ">
+        <div class="backbtn my-2 py-2 d-flex justify-content-end align-items-start">
+            <a asp-route="SubmitRequestTypes" class="p-1 btn btn-outline-info"> &lt; Back  </a>
         </div>
 
-        <form asp-controller="Patient" asp-action="PatientsTypeRequest" class="px-4 shadow boder-0" enctype="multipart/form-data" method="post">
+        <form asp-controller="Patient" asp-action="PatientsTypeRequest" class="px-4 shadow-lg boder-0 bg-white " enctype="multipart/form-data" method="post">
 
             <h5 class="pt-4">Patient Information</h5>
 

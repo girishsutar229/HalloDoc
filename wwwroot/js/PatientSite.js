@@ -34,65 +34,69 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Phonenumbershow with flages for  phone1......................................................................
 
+if (document.getElementById("phone")) {
+    var input = document.querySelector("#phone");
+    var iti = window.intlTelInput(input, {
+        initialCountry: "in",
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
 
-var input = document.querySelector("#phone");
-var iti = window.intlTelInput(input, {
-    initialCountry: "in",
-    separateDialCode: true,
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-});
+    // Update the flag when the country is changed
+    input.addEventListener("countrychange", function () {
+        var countryCode = iti.getSelectedCountryData().iso2;
+        var flagContainer = document.querySelector("#flag-container");
+        flagContainer.innerHTML = "";
+        var flag = document.createElement("div");
+        flag.classList.add("iti__flag");
+        flag.classList.add("iti__" + countryCode.toLowerCase());
+        flagContainer.appendChild(flag);
+    });
 
-// Update the flag when the country is changed
-input.addEventListener("countrychange", function () {
-    var countryCode = iti.getSelectedCountryData().iso2;
-    var flagContainer = document.querySelector("#flag-container");
-    flagContainer.innerHTML = "";
-    var flag = document.createElement("div");
-    flag.classList.add("iti__flag");
-    flag.classList.add("iti__" + countryCode.toLowerCase());
-    flagContainer.appendChild(flag);
-});
-
-// Validate phone number
-function validatePhoneNumber() {
-    if (iti.isValidNumber()) {
-        document.getElementById("textChange").innerHTML = "Valid";
-        document.getElementById("textChange").classList.remove("invalid-text");
-        document.getElementById("textChange").classList.add("valid-text");
-    } else {
-        document.getElementById("textChange").innerHTML = "Invalid";
-        document.getElementById("textChange").classList.remove("valid-text");
-        document.getElementById("textChange").classList.add("invalid-text");
+    // Validate phone number
+    function validatePhoneNumber() {
+        if (iti.isValidNumber()) {
+            document.getElementById("textChange").innerHTML = "Valid";
+            document.getElementById("textChange").classList.remove("invalid-text");
+            document.getElementById("textChange").classList.add("valid-text");
+        } else {
+            document.getElementById("textChange").innerHTML = "Invalid";
+            document.getElementById("textChange").classList.remove("valid-text");
+            document.getElementById("textChange").classList.add("invalid-text");
+        }
     }
+
 }
+if(document.getElementById("patientphone")){
 
+    var input = document.querySelector("#patientphone");
+    var iti = window.intlTelInput(input, {
+        initialCountry: "in",
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
 
-var input = document.querySelector("#phone2");
-var iti = window.intlTelInput(input, {
-    initialCountry: "in",
-    separateDialCode: true,
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-});
+    input.addEventListener("countrychange", function () {
+        var countryCode = iti.getSelectedCountryData().iso2;
+        var flagContainer = document.querySelector("#flag-container");
+        flagContainer.innerHTML = "";
+        var flag = document.createElement("div");
+        flag.classList.add("iti__flag");
+        flag.classList.add("iti__" + countryCode.toLowerCase());
+        flagContainer.appendChild(flag);
+    });
 
-input.addEventListener("countrychange", function () {
-    var countryCode = iti.getSelectedCountryData().iso2;
-    var flagContainer = document.querySelector("#flag-container");
-    flagContainer.innerHTML = "";
-    var flag = document.createElement("div");
-    flag.classList.add("iti__flag");
-    flag.classList.add("iti__" + countryCode.toLowerCase());
-    flagContainer.appendChild(flag);
-});
-
-// Validate phone number
-function validatePhoneNumber2() {
-    if (iti.isValidNumber()) {
-        document.getElementById("textChange").innerHTML = "Valid";
-        document.getElementById("textChange").classList.remove("invalid-text");
-        document.getElementById("textChange").classList.add("valid-text");
-    } else {
-        document.getElementById("textChange").innerHTML = "Invalid";
-        document.getElementById("textChange").classList.remove("valid-text");
-        document.getElementById("textChange").classList.add("invalid-text");
+    // Validate phone number
+    function patientvalidatePhoneNumber() {
+        if (iti.isValidNumber()) {
+            document.getElementById("patienttextChange").innerHTML = "Valid";
+            document.getElementById("patienttextChange").classList.remove("invalid-text");
+            document.getElementById("patienttextChange").classList.add("valid-text");
+        } else {
+            document.getElementById("patienttextChange").innerHTML = "Invalid";
+            document.getElementById("patienttextChange").classList.remove("valid-text");
+            document.getElementById("patienttextChange").classList.add("invalid-text");
+        }
     }
+
 }

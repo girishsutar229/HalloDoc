@@ -3,12 +3,11 @@
     ViewData["Title"] = "RequestTypes";
 }
 
-<div class=" patients-types d-flex flex-column justify-content-center align-items-center ">
-
-    <div class="w-100 m-5 ">
-        <a asp-route="PatientSite" class="backbutton"> &lt; Back  </a>
+<div class=" patients-types d-flex flex-column justify-content-center">
+    <div class="w-100  d-flex justify-content-end align-items-start mt-5">
+        <button class="btn btn-outline-info" type="submit" onclick="window.location.href = '@Url.Action("PatientSite", "Patient")';">&lt; Back</button>
     </div>
-    <h2 class="mb-3"> <strong>I am a .....</strong></h2>
+    <h2 class="pb-3 align-item-start "> <strong>I am a .....</strong></h2>
     <a class="patientanchor m-2" asp-route="PatientsTypeRequest"><strong>PATIENT</strong> </a>
     <a class="familyacnhor m-2" asp-route="FamilyTypeRequest"><strong>FAMILY / FRIEND</strong></a>
     <a class="concierge m-2" asp-route="ConciergeTypeRequest"><strong>CONCIERGE</strong></a>

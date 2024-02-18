@@ -5,12 +5,12 @@
 }
 <partial name="~/Views/Shared/_Header.cshtml" />
 
-<div class="mt-2 min-h-100 d-flex flex-column justify-content-between align-items-center">
+<div class="min-h-100 d-flex flex-column justify-content-between align-items-center">
     <div class="container pb-5">
-        <div class="backbtn py-3 d-flex justify-content-end align-items-start">
-            <a asp-route="SubmitRequestTypes" class="backbutton p-1"> &lt; Back  </a>
+        <div class=" py-2 my-3 d-flex justify-content-end align-items-start">
+            <a asp-route="SubmitRequestTypes" class="p-1 btn btn-outline-info"> &lt; Back  </a>
         </div>
-        <form asp-controller="Patient" asp-action="FamilyTypeRequest" class="px-4 shadow boder-0" enctype="multipart/form-data" >
+        <form asp-controller="Patient" asp-action="FamilyTypeRequest" class="px-4 shadow-lg boder-0 bg-white" enctype="multipart/form-data">
             <h5 class="pt-4">Family/Friend Information</h5>
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="mb-3  col-md-6 col-lg-6">
                     <div class="form-floating ">
-                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" onchange="validatePhoneNumber()">
+                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" onchange="validatePhoneNumber2()">
                         <span id="textChange"></span>
                     </div>
                 </div>
@@ -94,10 +94,10 @@
 
                     </div>
                 </div>
-                <div class="form-floating  mb-3  col-md-6 col-lg-6">
+                <div class="mb-3  col-md-6 col-lg-6">
                     <div class="form-floating">
-                        <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone2" onchange="validatePhoneNumber2()">
-                        <span id="textChange"></span>
+                        <input asp-for="PatientPhoneNumber" type="tel" class="form-control pt-3 pb-3" id="patientphone" onchange="patientvalidatePhoneNumber()">
+                        <span id="patienttextChange"></span>
                     </div>
                 </div>
             </div>

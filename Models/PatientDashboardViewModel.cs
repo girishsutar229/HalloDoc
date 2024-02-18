@@ -10,6 +10,7 @@ namespace HalloDoc.Models
         public UserProfileEditedViewModel ProfileEdited { get; set; } = new UserProfileEditedViewModel();
 
         public IEnumerable<Request> RequestsData { get; set; }
+
         public IEnumerable<RequestClient> RequestsClientData { get; set; }
 
         public List<IFormFile> formFile { get; set; }
