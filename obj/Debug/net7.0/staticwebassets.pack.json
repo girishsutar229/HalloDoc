@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\HalloDoc.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\DownloadFiles\\Request_79_Files.zip",
+      "PackagePath": "staticwebassets\\DownloadFiles\\Request_79_Files.zip"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\SRS Screen Shorts\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\11116016_415.jpg"
     },
@@ -613,6 +617,14 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\(12)New posgraSQL Createe tabl query.txt"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(15)HalloDoc - DB.xlsx",
+      "PackagePath": "staticwebassets\\UploadedFiles\\(15)HalloDoc - DB.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(16)New posgraSQL Createe tabl query.txt",
+      "PackagePath": "staticwebassets\\UploadedFiles\\(16)New posgraSQL Createe tabl query.txt"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\UploadedFiles\\(6)postgreSql_Query.txt",
       "PackagePath": "staticwebassets\\UploadedFiles\\(6)postgreSql_Query.txt"
     },
@@ -667,6 +679,10 @@
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\PatientSite.js",
       "PackagePath": "staticwebassets\\js\\PatientSite.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\ProfileeditingAndMap.js",
+      "PackagePath": "staticwebassets\\js\\ProfileeditingAndMap.js"
     },
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HalloDoc\\HalloDoc\\wwwroot\\js\\ValidationForm.js",

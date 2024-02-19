@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HalloDoc.DataModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace HalloDoc.Models
 {
     public class PatientCreateNewRequestViewModel
     {
+
+        public string? BirthDate { get; set; }
 
         [Key]
 

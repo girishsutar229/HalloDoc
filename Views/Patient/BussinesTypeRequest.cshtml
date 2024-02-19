@@ -14,7 +14,7 @@
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" >
+                        <input asp-for="FirstName" class="form-control" type="text" id="First-Name" placeholder="First Name">
                         <label asp-for="FirstName">Your First Name</label>
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
@@ -22,34 +22,34 @@
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
+                        <input asp-for="LastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name">
                         <label asp-for="LastName">Your Last Name</label>
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3  col-md-6 col-lg-6">
                     <div class="form-floating ">
-                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone"  onchange="validatePhoneNumber2()">
+                        <input asp-for="PhoneNumber" type="tel" class="form-control pt-3 pb-3" id="phone" onchange="validatePhoneNumber2()">
                         <span id="textChange"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="Email" class="form-control" type="email" id="Email" placeholder="Email " >
+                        <input asp-for="Email" class="form-control" type="email" id="Email" placeholder="Email ">
                         <label asp-for="Email">Your Email</label>
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="BusinessName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
+                        <input asp-for="BusinessName" class="form-control" type="text" id="Last-Name" placeholder="Last Name">
                         <label asp-for="BusinessName">Business/Property Name</label>
                         <span asp-validation-for="BusinessName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="CaseNumber" class="form-control" type="text" id="Last-Name" placeholder="Case Number" >
+                        <input asp-for="CaseNumber" class="form-control" type="text" id="Last-Name" placeholder="Case Number">
                         <label asp-for="CaseNumber">Case Number/(Optional)</label>
                         <span asp-validation-for="CaseNumber" class="text-danger"></span>
                     </div>
@@ -61,28 +61,28 @@
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 mb-3 ">
                     <div class="form-floating ">
-                        <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)" ></textarea>
+                        <textarea asp-for="PatientSymptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)"></textarea>
                         <label asp-for="PatientSymptoms" class="mx-3 ">Enter Brief Details Of Sympotonms (Optional)</label>
                         <span asp-validation-for="PatientSymptoms" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating ">
-                        <input asp-for="PatientFirstName" class="form-control" type="text" id="First-Name" placeholder="First Name" >
+                        <input asp-for="PatientFirstName" class="form-control" type="text" id="First-Name" placeholder="First Name">
                         <label asp-for="PatientFirstName">First Name</label>
                         <span asp-validation-for="PatientFirstName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name" >
+                        <input asp-for="PatientLastName" class="form-control" type="text" id="Last-Name" placeholder="Last Name">
                         <label asp-for="PatientLastName">Last Name</label>
                         <span asp-validation-for="PatientLastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating ">
-                        <input asp-for="PatientDateOfBirth" class="form-control" type="date" id="date-of-birth" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="date-of-birth" >
+                        <input asp-for="PatientDateOfBirth" class="form-control" type="date" id="date-of-birth" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="date-of-birth">
                         <label asp-for="PatientDateOfBirth">Date Of Birth</label>
                         <span asp-validation-for="PatientDateOfBirth" class="text-danger"></span>
                     </div>
@@ -92,7 +92,7 @@
             <div class=" row input-group mb-3 justify-content-between align-items-center">
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating">
-                        <input asp-for="PatientEmail" class="form-control" type="email" id="Email" placeholder="Email " >
+                        <input asp-for="PatientEmail" class="form-control" type="email" id="Email" placeholder="Email ">
                         <label asp-for="PatientEmail">Email</label>
                         <span asp-validation-for="PatientEmail" class="text-danger"></span>
                     </div>
@@ -109,35 +109,35 @@
             <div class="row input-group mb-3 justify-content-between align-items-center">
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 row2">
                     <div class="form-floating">
-                        <input asp-for="PatientStreet" class="form-control" type="text" id="Street" placeholder="Street" >
+                        <input asp-for="PatientStreet" class="form-control" type="text" id="Street" placeholder="Street">
                         <label asp-for="PatientStreet">Street</label>
                         <span asp-validation-for="PatientStreet" class="text-danger"></span>
                     </div>
                 </div>
                 <div class=" col-12 col-md-6 col-lg-6 mb-3 ">
                     <div class="form-floating">
-                        <input asp-for="PatientCity" class="form-control" type="text" id="City" placeholder="City" >
+                        <input asp-for="PatientCity" class="form-control" type="text" id="City" placeholder="City">
                         <label asp-for="PatientCity">City</label>
                         <span asp-validation-for="PatientCity" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6  mb-3 ">
                     <div class="form-floating">
-                        <input asp-for="PatientState" class="form-control" type="text" id="State" placeholder="State" >
+                        <input asp-for="PatientState" class="form-control" type="text" id="State" placeholder="State">
                         <label asp-for="PatientState">State</label>
                         <span asp-validation-for="PatientState" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6  mb-3">
                     <div class="form-floating">
-                        <input asp-for="PatientZipCode" class="form-control" type="text" id="Zip Code" placeholder="Zip Code" >
+                        <input asp-for="PatientZipCode" class="form-control" type="text" id="Zip Code" placeholder="Zip Code">
                         <label asp-for="PatientZipCode">Zip Code</label>
                         <span asp-validation-for="PatientZipCode" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 mb-3">
                     <div class="form-floating">
-                        <input asp-for="PatientRoomNumber" class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)" >
+                        <input asp-for="PatientRoomNumber" class="form-control" type="text" id="Room" placeholder="Room #/ Suit (Optional)">
                         <label asp-for="PatientRoomNumber">Room # / Suit (Optional)</label>
                         <span asp-validation-for="PatientRoomNumber" class="text-danger"></span>
                     </div>
@@ -152,10 +152,10 @@
     </div>
 
     <partial name="~/Views/Shared/_PopUpModelForRequest.cshtml" />
-<partial name="~/Views/Shared/_Footer.cshtml" />
+    <partial name="~/Views/Shared/_Footer.cshtml" />
 
-@section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
+    @section Scripts {
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
     }
-}

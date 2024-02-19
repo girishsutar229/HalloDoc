@@ -17,7 +17,7 @@
             <div class="row input-group justify-content-between align-items-center">
                 <div class="col-12 mb-3 ">
                     <div class="form-floating ">
-                        <textarea asp-for="Symptoms" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Sympotonms (Optional)" ></textarea>
+                        <textarea asp-for="Symptoms" class="form-control symp-textarea" id="exampleFormControlTextarea1" rows="5" placeholder="Enter Brief Details Of Symptoms (Optional)"></textarea>
                         <label asp-for="Symptoms">Enter Brief Details Of Sympotonms (Optional)</label>
                         <span asp-validation-for="Symptoms" class="text-danger"></span>
                     </div>
@@ -52,8 +52,8 @@
             <h5 class="pt-4">Patient Contact Information</h5>
             <div class=" row input-group mb-3 justify-content-between align-items-center">
                 <div class="col-12 col-md-6 col-lg-6 mb-3 ">
-                    <div class="form-floating ">
-                        <input asp-for="Email" class="form-control" id="Email" placeholder="Email " >
+                    <div class="form-floating " onclick="checkUser()">
+                        <input asp-for="Email" class="form-control" id="PatientEmail" placeholder="Email ">
                         <label asp-for="Email">Your Email</label>
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
@@ -64,21 +64,34 @@
                         <span  id="textChange"></span>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-3">
+
+                <div class="col-12 col-md-6 col-lg-6 mb-3" id="passdiv" style="display:none;">
                     <div class="form-floating ">
-                        <input asp-for="PasswordHash" class="form-control" placeholder="Password" >
+                        <input asp-for="PasswordHash" class="form-control"  placeholder="Password" >
                         <label asp-for="PasswordHash">Password</label>
                         <span asp-validation-for="PasswordHash" class="text-danger"></span>
 
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-3">
+                <div class="col-12 col-md-6 col-lg-6 mb-3" id="confpassdiv" style="display:none;">
                     <div class="form-floating ">
-                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" >
+                        <input asp-for="ConfirmPassword" class="form-control"  placeholder="Confirm Password" >
                         <label asp-for="ConfirmPassword">Confirm Password</label>
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
                 </div>
+               
+
+              @*   <div class="row hidden-pass" style="display:none;">
+                    <div class="form-floating col-sm-6 mt-3">
+                        <input type="password" class="form-control" placeholder="Your First Name" aria-label="First name" asp-for="PasswordHash">
+                        <label for="floatingInput" class="ms-2 text-muted">Create Password</label>
+                    </div>
+                    <div class="form-floating col-sm-6 mt-3">
+                        <input type="password" class="form-control" placeholder="Password" aria-label="First name" asp-for="ConfirmPassword">
+                        <label for="floatingInput" class="ms-2 text-muted">Confirm Password</label>
+                    </div>
+                </div> *@
 
             </div>
             <h5 class="pt-4">Patient Location</h5>
@@ -150,6 +163,48 @@
 
 <partial name="~/Views/Shared/_PopUpModelForRequest.cshtml" />
 <partial name="~/Views/Shared/_Footer.cshtml" />
+
+
+<script>
+   // Check for existing users
+    function checkUser() {
+        var email = document.getElementById("PatientEmail").value;
+        fetch('/Patient/PatientSubmitRequest/CheckEmail/' + email)
+            .then(response => response.json())
+            .then(data => {
+                var PasswordHash = document.getElementById('passdiv');
+                var ConfirmPassword = document.getElementById('confpassdiv');
+                if (data.exists) {
+                    PasswordHash.style.display = 'none';
+                    ConfirmPassword.style.display = 'none';
+                }
+                else {
+                    PasswordHash.style.display = 'block';
+                    ConfirmPassword.style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+
+    // $(document).ready(function () {
+    //     $('#PatientEmail').on('blur', function () {
+    //         var inputValue = $('#PatientEmail').val();
+
+    //         $.get('/PatientRequest/PatientCheck', { email: inputValue }, function (response) {
+    //             console.log(response);
+    //             if (!response.isValid) {
+    //                 document.getElementsByClassName("hidden-pass")[0].style.display = "block";
+    //             }
+    //             else {
+    //                 document.getElementsByClassName("hidden-pass")[0].style.display = "none";
+    //             }
+    //         });
+    //     });
+    // });
+
+</script>
 
 
 @section Scripts {

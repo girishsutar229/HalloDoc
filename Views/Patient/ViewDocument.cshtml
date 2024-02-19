@@ -1,5 +1,9 @@
 ﻿@using HalloDoc.Enums;
 @model HalloDoc.Models.PatientDashboardViewModel;
+@{
+    var firstname = Context.Request.Cookies["FirstName"];
+    var lastname = Context.Request.Cookies["LastName"];
+}
 
 <!doctype html>
 <html lang="en">
@@ -18,7 +22,7 @@
 
 <body >
 
-    <partial name="_Header" />
+    <partial name="_Header2" />
 
     <div class="mt-2 h-100 d-flex flex-column align-items-center container-fluid pb-4">
 
@@ -28,7 +32,7 @@
         </div>
         <div class=" container shadow-lg bg-white ">
             <div class="pt-5">Patient's Name</div>
-            <h4 class="fs-5 fw-bold text-info">@ViewBag.FirstName @ViewBag.LastName <span class="fs-6 text-muted">(@ViewBag.ConfirmationNumber)</span></h4>
+            <h4 class="fs-5 fw-bold text-info">@firstname @lastname <span class="fs-6 text-muted">(@ViewBag.ConfirmationNumber)</span></h4>
             <p>Check here for any files that you or the doctors of your subsequent requestors have attached for you to review.</p>
             <form asp-action="UploadDocuments" asp-controller="Patient" asp-route-reqId="@ViewBag.reqId" multiple enctype="multipart/form-data">
                 <div class="input-group">
@@ -40,9 +44,7 @@
             <div class="p-1 mt-3 ">
                 <div class="d-flex justify-content-between">
                     <h5>Documents</h5>
-                    <button type="button" class=" btn btn-outline-info " data-bs-toggle="modal" data-bs-target="#examplemodal" onclick="create_request()">
-                        <a asp-action="DownloadAll" asp-controller="Patient" asp-route-id="@ViewBag.RequestId"></a> DownloadAll
-                    </button>
+                         <a asp-action="DownloadAll" class=" btn btn-outline-info "  asp-controller="Patient" asp-route-reqId="@ViewBag.reqId">DownloadAll </a>
                 </div>
                 <table class="table table-hover mt-5">
                     <thead class="table-econdary">
